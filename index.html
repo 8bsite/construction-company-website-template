@@ -4,6 +4,7 @@
   Source: https://github.com/8bsite/construction-company-website-template
   MIT License (code) https://8b.com/ · Photos: Unsplash License, see CREDITS.md · Fonts: Google Fonts (OFL)
   One HTML file, no build step. Notes for people and AI agents: README.md and AGENTS.md.
+  Scroll motion: CSS scroll-driven animations and an inline script, no libraries. A GSAP build of this page: index.gsap.html.
 -->
 <html lang="en">
 <head>
@@ -137,10 +138,6 @@
   button { cursor: pointer; }
   :focus-visible { outline: 2px solid var(--color-7); outline-offset: 3px; }
   .visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
-  html.lenis, html.lenis body { height: auto; }
-  .lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
-  .lenis [data-lenis-prevent] { overscroll-behavior: contain; }
-  .lenis.lenis-smooth iframe { pointer-events: none; }
 }
 </style>
 <style data-8b-part="system">
@@ -294,15 +291,6 @@ select.m-field__input { appearance: none; background-image: linear-gradient(45de
   @keyframes opening-loose { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
 }
 </style>
-<style data-8b-part="scene-style:opening">
-@layer scenes {
-  @media (prefers-reduced-motion: no-preference) {
-    #opening.is-opening .opening__ground { --opening-hole-l: 0px; --opening-hole-t: 0px; --opening-hole-r: 0px; --opening-hole-b: 0px; }
-    #opening.is-opening.is-moving .opening__ground { clip-path: polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 0 0, var(--opening-hole-l) var(--opening-hole-t), var(--opening-hole-r) var(--opening-hole-t), var(--opening-hole-r) var(--opening-hole-b), var(--opening-hole-l) var(--opening-hole-b), var(--opening-hole-l) var(--opening-hole-t)); }
-    #opening.is-opening .opening__room img { transform-origin: 70% 60%; }
-  }
-}
-</style>
 <style data-8b-part="section:services">
 @layer sections {
   #services { padding: var(--space-2) var(--space-1); }
@@ -319,13 +307,6 @@ select.m-field__input { appearance: none; background-image: linear-gradient(45de
     #services .services__frame { grid-column: 1 / -1; grid-row: 2; top: 64px; z-index: 2; height: 34vh; margin-bottom: 8px; }
     #services .services__list { grid-column: 1 / -1; grid-row: 3; }
     #services .svc { min-height: 42vh; padding: 28px 0; }
-  }
-}
-</style>
-<style data-8b-part="scene-style:services-index">
-@layer scenes {
-  @media (prefers-reduced-motion: no-preference) {
-    #services.is-indexing .services__frame img { transform-origin: 50% 100%; }
   }
 }
 </style>
@@ -385,14 +366,6 @@ select.m-field__input { appearance: none; background-image: linear-gradient(45de
   }
 }
 </style>
-<style data-8b-part="scene-style:work-gather">
-@layer scenes {
-  @media (prefers-reduced-motion: no-preference) and (min-width: 800.02px) {
-    #work.is-gathering { min-height: 250vh; padding-top: 0; padding-bottom: 0; }
-    #work.is-gathering .work__stage { position: sticky; top: 0; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 72px 0 32px; }
-  }
-}
-</style>
 <style data-8b-part="section:materials">
 @layer sections {
   #materials { padding: var(--space-2) var(--space-1); overflow: clip; }
@@ -412,18 +385,6 @@ select.m-field__input { appearance: none; background-image: linear-gradient(45de
     #materials .materials__strips { grid-template-columns: minmax(0, 1fr); gap: 10px; }
     #materials .mat figure { grid-template-columns: 42% minmax(0, 1fr); align-items: end; gap: 16px; background: var(--color-1); }
     #materials .mat__photo { height: 26vh; min-height: 170px; }
-  }
-}
-</style>
-<style data-8b-part="scene-style:materials-fan">
-@layer scenes {
-  @media (prefers-reduced-motion: no-preference) {
-    #materials.is-folding .mat__tone { display: block; position: absolute; inset: 0; pointer-events: none; }
-    #materials.is-folding .mat:nth-child(5n + 1) .mat__tone { background: var(--color-3); }
-    #materials.is-folding .mat:nth-child(5n + 2) .mat__tone { background: var(--color-4); }
-    #materials.is-folding .mat:nth-child(5n + 3) .mat__tone { background: var(--color-5); }
-    #materials.is-folding .mat:nth-child(5n + 4) .mat__tone { background: var(--color-6); }
-    #materials.is-folding .mat:nth-child(5n + 5) .mat__tone { background: var(--color-2); }
   }
 }
 </style>
@@ -453,15 +414,6 @@ select.m-field__input { appearance: none; background-image: linear-gradient(45de
     #process .process__wall > :nth-child(n) { grid-area: auto; }
     #process .process__wall > .step-blank { display: none; }
     #process .step { min-height: 150px; }
-  }
-}
-</style>
-<style data-8b-part="scene-style:process-courses">
-@layer scenes {
-  @media (prefers-reduced-motion: no-preference) and (min-width: 900px) {
-    #process.is-building { min-height: 290vh; padding-bottom: 0; }
-    #process.is-building .process__stage { position: sticky; top: 0; height: 100vh; padding: 92px 0 var(--space-1); }
-    #process.is-building .process__wall { grid-template-rows: repeat(3, minmax(0, 1fr)); }
   }
 }
 </style>
@@ -525,13 +477,6 @@ select.m-field__input { appearance: none; background-image: linear-gradient(45de
     #reviews .reviews__head h2, #reviews .reviews__intro { grid-column: 1 / -1; }
     #reviews .reviews__head { margin-bottom: 40px; }
     #reviews .review { min-height: 58vh; }
-  }
-}
-</style>
-<style data-8b-part="scene-style:reviews-stack">
-@layer scenes {
-  @media (prefers-reduced-motion: no-preference) {
-    #reviews.is-stacking .review { position: sticky; }
   }
 }
 </style>
@@ -604,6 +549,251 @@ select.m-field__input { appearance: none; background-image: linear-gradient(45de
   @media (max-width: 480px) { #footer .footer__col { grid-column: 1 / -1; } }
 }
 </style>
+<style data-8b-part="motion">
+@layer scenes {
+[data-8b-live] [data-8b-motion~="rise"] { animation-name: motion-rise-translate, motion-rise-opacity; animation-duration: 0.9s; animation-delay: 0s; animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1); animation-fill-mode: both; animation-play-state: paused; transform: none; }
+[data-8b-live] [data-8b-motion~="rise"].is-in { animation-play-state: running; }
+[data-8b-live] [data-8b-motion~="frame"] { animation-name: motion-frame-clippath; animation-duration: 1.2s; animation-delay: 0s; animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); animation-fill-mode: both; animation-play-state: paused; }
+[data-8b-live] [data-8b-motion~="frame"].is-in { animation-play-state: running; }
+[data-8b-live] [data-8b-motion~="frame"] img { animation-name: motion-frame-img-scale; animation-duration: 1.4s; animation-delay: 0s; animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); animation-fill-mode: both; animation-play-state: paused; transform: none; }
+[data-8b-live] [data-8b-motion~="frame"].is-in img { animation-play-state: running; }
+[data-8b-live] [data-8b-motion~="measure"] :is(.m-dim__line, .m-dim-2__line) { animation-name: motion-measure-line; animation-duration: 1s; animation-delay: 0s; animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1); animation-fill-mode: both; animation-play-state: paused; }
+[data-8b-live] [data-8b-motion~="measure"] .m-dim-2__line { animation-name: motion-measure-line-2; }
+[data-8b-live] [data-8b-motion~="measure"] :is(.m-dim__label, .m-dim-2__label) { animation-name: motion-measure-label; animation-duration: 0.4s; animation-delay: 0.55s; animation-timing-function: linear; animation-fill-mode: both; animation-play-state: paused; }
+[data-8b-live] [data-8b-motion~="measure"].is-in :is(.m-dim__line, .m-dim-2__line, .m-dim__label, .m-dim-2__label) { animation-play-state: running; }
+@keyframes motion-measure-line { 0% { scale: 0 1; } 100% { scale: 1; } }
+@keyframes motion-measure-line-2 { 0% { scale: 1 0; } 100% { scale: 1; } }
+@keyframes motion-measure-label { 0% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes motion-rise-translate { 0% { translate: 0px 36px; } 100% { translate: 0px 0px; } }
+@keyframes motion-rise-opacity { 0% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes motion-frame-clippath { 0% { clip-path: inset(14% 18% round 44px); } 100% { clip-path: inset(0%); } }
+@keyframes motion-frame-img-scale { 0% { scale: 1.22; } 100% { scale: 1; } }
+}
+</style>
+<style data-8b-part="scene:opening">
+@layer scenes {
+@property --opening-hole-l { syntax: "<length-percentage>"; inherits: false; initial-value: 0px; }
+@property --opening-hole-t { syntax: "<length-percentage>"; inherits: false; initial-value: 0px; }
+@property --opening-hole-r { syntax: "<length-percentage>"; inherits: false; initial-value: 0px; }
+@property --opening-hole-b { syntax: "<length-percentage>"; inherits: false; initial-value: 0px; }
+[data-8b-live] #opening { timeline-scope: --opening-first; }
+[data-8b-live] #opening .opening__first { view-timeline: --opening-first block; }
+[data-8b-live] #opening .opening__ground, [data-8b-live] #opening .wall__level, [data-8b-live] #opening .wall__joints, [data-8b-live] #opening .opening__room img, [data-8b-live] #opening .opening__copy, [data-8b-live] #opening .opening__panel, [data-8b-live] #opening .wall__block { animation-timeline: --opening-first; animation-fill-mode: both; }
+[data-8b-live] #opening .opening__ground {
+  animation-name: opening-hole-r, opening-hole-b, opening-hole-l, opening-hole-t, opening-hole;
+  animation-timeline: --opening-first, --opening-first, --opening-first, --opening-first, --opening-first;
+  animation-range: exit-crossing 8% exit-crossing 24%, exit-crossing 8% exit-crossing 24%, exit-crossing 14% exit-crossing 74%, exit-crossing 14% exit-crossing 74%, exit-crossing 0.1% exit-crossing 100%;
+  animation-timing-function: cubic-bezier(0.3333, 0.6667, 0.6667, 1), cubic-bezier(0.3333, 0.6667, 0.6667, 1), cubic-bezier(0.3333, 0, 0.6667, 0), cubic-bezier(0.3333, 0, 0.6667, 0), linear;
+  animation-fill-mode: both, both, both, both, forwards;
+}
+[data-8b-live] #opening .wall__level { animation-name: opening-fade; animation-range: exit-crossing 0% exit-crossing 6%; animation-timing-function: linear; }
+[data-8b-live] #opening .wall__joints { animation-name: opening-fade; animation-range: exit-crossing 2% exit-crossing 16%; animation-timing-function: linear; }
+[data-8b-live] #opening .opening__room img { transform-origin: 70% 60%; animation-name: opening-room; animation-range: exit-crossing 0% exit-crossing 100%; animation-timing-function: linear; }
+[data-8b-live] #opening .opening__copy { animation-name: opening-copy; animation-range: exit-crossing 22% exit-crossing 54%; animation-timing-function: cubic-bezier(0.3333, 0, 0.6667, 0.3333); }
+[data-8b-live] #opening .opening__panel { animation-name: opening-panel; animation-range: exit-crossing 66% exit-crossing 96%; animation-timing-function: cubic-bezier(0.3333, 1, 0.6667, 1); }
+[data-8b-live] #opening .wall__block {
+  --opening-at: calc(0.04 + var(--opening-c, 0) * 0.045 + var(--opening-i, 0) * 0.025);
+  --opening-dir: -1;
+  animation-name: opening-block;
+  animation-range: exit-crossing calc(var(--opening-at) * 100%) exit-crossing calc((var(--opening-at) + 0.3) * 100%);
+  animation-timing-function: cubic-bezier(0.3333, 0, 0.6667, 0);
+}
+[data-8b-live] #opening .wall__block:nth-child(even) { --opening-dir: 1; }
+@keyframes opening-hole-r { from { --opening-hole-r: var(--opening-hole-r0, 100%); } to { --opening-hole-r: calc(100% + 4px); } }
+@keyframes opening-hole-b { from { --opening-hole-b: var(--opening-hole-b0, 100%); } to { --opening-hole-b: calc(100% + 4px); } }
+@keyframes opening-hole-l { from { --opening-hole-l: var(--opening-hole-l0, 0px); } to { --opening-hole-l: -4px; } }
+@keyframes opening-hole-t { from { --opening-hole-t: var(--opening-hole-t0, 0px); } to { --opening-hole-t: -4px; } }
+@keyframes opening-hole {
+  from, to { clip-path: polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 0 0, var(--opening-hole-l) var(--opening-hole-t), var(--opening-hole-r) var(--opening-hole-t), var(--opening-hole-r) var(--opening-hole-b), var(--opening-hole-l) var(--opening-hole-b), var(--opening-hole-l) var(--opening-hole-t)); }
+}
+@keyframes opening-fade { to { opacity: 0; } }
+@keyframes opening-room { from { scale: 1.18; } to { scale: 1; } }
+@keyframes opening-copy { to { translate: 0 -12svh; opacity: 0; } }
+@keyframes opening-panel { from { translate: 0 90px; opacity: 0; } to { translate: 0 0; opacity: 1; } }
+@keyframes opening-block { to { translate: calc(var(--opening-dir) * (28px + var(--opening-i, 0) * 22px)) calc((0.1 + var(--opening-c, 0) * 0.035) * -100svh); rotate: calc(var(--opening-dir) * 5deg); opacity: 0; } }
+}
+</style>
+<style data-8b-part="scene:services-index">
+@layer scenes {
+  @media (prefers-reduced-motion: no-preference) {
+    [data-8b-live] #services .services__frame img { transform-origin: 50% 100%; }
+  }
+}
+@layer scenes {
+[data-8b-live] #services .services__frame > img { z-index: calc(1 + var(--i) * 1); }
+[data-8b-live] #services { timeline-scope: --services-t1; --services-at: calc(45vh + var(--services-start, 0px)); }
+[data-8b-live] #services .services__list { view-timeline: --services-t1 block; view-timeline-inset: 0; }
+[data-8b-live] #services .services__frame > img:not(:first-of-type) {
+  animation-name: services-div-services-frame-img-clippath, services-div-services-frame-img-scale;
+  animation-timeline: --services-t1;
+  animation-range: cover calc(var(--services-at) + (var(--i) - 0.8) * var(--services-unit, 54vh)) cover calc(var(--services-at) + (var(--i) - 0.2) * var(--services-unit, 54vh));
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1), cubic-bezier(0.65, 0, 0.35, 1);
+  animation-fill-mode: both, forwards; transform: none;
+}
+[data-8b-live] #services .services__frame { animation-timeline: --services-t1; animation-fill-mode: both; animation-range: cover calc(var(--services-at) + 0.2 * var(--services-unit, 54vh)) cover calc(var(--services-at) + 3.8 * var(--services-unit, 54vh)); }
+[data-8b-live] #services .services__list > li { animation-name: services-li-svc-opacity-2; animation-timeline: --services-t1; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); animation-fill-mode: both; animation-range: cover calc(var(--services-at) + (var(--i) - 0.8) * var(--services-unit, 54vh)) cover calc(var(--services-at) + (var(--i) + 0.5) * var(--services-unit, 54vh)); }
+[data-8b-live] #services .services__list > li:first-of-type { animation-name: services-li-svc-opacity; animation-range: cover calc(var(--services-at) + 0.2 * var(--services-unit, 54vh)) cover calc(var(--services-at) + 0.5 * var(--services-unit, 54vh)); }
+[data-8b-live] #services .services__list > li:last-of-type { animation-name: services-li-svc-opacity-5; animation-range: cover calc(var(--services-at) + (var(--i) - 0.8) * var(--services-unit, 54vh)) cover calc(var(--services-at) + (var(--i) - 0.5) * var(--services-unit, 54vh)); }
+@keyframes services-div-services-frame-img-clippath { 0% { clip-path: inset(100% 0% 0%); } 100% { clip-path: inset(0%); } }
+@keyframes services-div-services-frame-clippath-d { 0% { clip-path: inset(0%); } 16.6667% { clip-path: inset(3% 17%); } 27.7778% { clip-path: inset(3% 17%); } 27.7798% { clip-path: inset(3% 17% 0% 0%); } 44.4444% { clip-path: inset(0% 0% 16%); } 55.5556% { clip-path: inset(0% 0% 16%); } 72.2222% { clip-path: inset(15% 0%); } 83.3333% { clip-path: inset(15% 0%); } 83.3353% { clip-path: inset(15% 0% 0%); } 100% { clip-path: inset(0% 9% round 400px 400px 0px 0px); } }
+@keyframes services-div-services-frame-clippath-m { 0% { clip-path: inset(0%); animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); } 16.6667% { clip-path: inset(0%); } 27.7778% { clip-path: inset(0%); animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); } 44.4444% { clip-path: inset(0%); } 55.5556% { clip-path: inset(0%); animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); } 72.2222% { clip-path: inset(0%); } 83.3333% { clip-path: inset(0%); animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); } 100% { clip-path: inset(0%); } }
+@keyframes services-li-svc-opacity { 0% { opacity: 1; } 100% { opacity: 0.25; } }
+@keyframes services-li-svc-opacity-2 { 0% { opacity: 0.25; } 23.0769% { opacity: 1; } 76.9231% { opacity: 1; } 100% { opacity: 0.25; } }
+@keyframes services-li-svc-opacity-5 { 0% { opacity: 0.25; } 100% { opacity: 1; } }
+@keyframes services-div-services-frame-img-scale { 0% { scale: 1.18; } 100% { scale: 1; } }
+@media (width > 800px) {
+  [data-8b-live] #services .services__frame { animation-name: services-div-services-frame-clippath-d; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
+}
+@media (width <= 800px) {
+  [data-8b-live] #services .services__frame { animation-name: services-div-services-frame-clippath-m; animation-timing-function: linear; }
+}
+}
+</style>
+<style data-8b-part="scene:work-gather">
+@layer scenes {
+[data-8b-live] #work { --work-ease: linear(0, 0.0001, 0.0005, 0.0017, 0.004, 0.0078, 0.0135, 0.0214, 0.032, 0.0456, 0.0625, 0.0832, 0.108, 0.1373, 0.1715, 0.2109, 0.256, 0.3071, 0.3645, 0.4287, 0.5, 0.5713, 0.6355, 0.6929, 0.744, 0.7891, 0.8285, 0.8627, 0.892, 0.9168, 0.9375, 0.9544, 0.968, 0.9786, 0.9865, 0.9922, 0.996, 0.9983, 0.9995, 0.9999, 1); }
+[data-8b-live] #work .work__sheet > li { animation-name: work-gather; animation-timing-function: var(--work-ease); animation-fill-mode: both; }
+[data-8b-live] #work .work__sheet > li figcaption { animation-name: work-caption; animation-timing-function: linear; animation-fill-mode: both; }
+@keyframes work-gather { from { translate: var(--work-x, 0px) var(--work-y, 0px); scale: var(--work-s, 1); rotate: var(--work-r, 0deg); } to { translate: 0 0; scale: 1; rotate: 0deg; } }
+@keyframes work-caption { from { opacity: 0; } to { opacity: 1; } }
+@media (width > 800px) {
+  [data-8b-live] #work { min-height: 250vh; padding-top: 0; padding-bottom: 0; view-timeline: --work-section block; }
+  [data-8b-live] #work .work__stage { position: sticky; top: 0; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 72px 0 32px; }
+  [data-8b-live] #work .work__sheet > li { animation-timeline: --work-section; animation-range: contain calc(var(--work-a, 0) * 100%) contain calc(var(--work-b, 1) * 100%); }
+  [data-8b-live] #work .work__sheet > li figcaption { animation-timeline: --work-section; animation-range: contain calc(var(--work-ca, 0) * 100%) contain calc(var(--work-cb, 1) * 100%); }
+}
+@media (width <= 800px) {
+  [data-8b-live] #work { timeline-scope: --work-sheet; }
+  [data-8b-live] #work .work__sheet { view-timeline: --work-sheet block; }
+  [data-8b-live] #work .work__sheet > li { animation-timeline: --work-sheet; animation-range: cover calc(8vh + var(--work-a, 0) * 87vh) cover calc(8vh + var(--work-b, 1) * 87vh); }
+  [data-8b-live] #work .work__sheet > li figcaption { animation-timeline: --work-sheet; animation-range: cover calc(8vh + var(--work-ca, 0) * 87vh) cover calc(8vh + var(--work-cb, 1) * 87vh); }
+}
+}
+</style>
+<style data-8b-part="scene:materials-fan">
+@layer scenes {
+[data-8b-live] #materials .mat__tone { display: block; position: absolute; inset: 0; pointer-events: none; }
+[data-8b-live] #materials .mat:nth-child(5n + 1) .mat__tone { background: var(--color-3); }
+[data-8b-live] #materials .mat:nth-child(5n + 2) .mat__tone { background: var(--color-4); }
+[data-8b-live] #materials .mat:nth-child(5n + 3) .mat__tone { background: var(--color-5); }
+[data-8b-live] #materials .mat:nth-child(5n + 4) .mat__tone { background: var(--color-6); }
+[data-8b-live] #materials .mat:nth-child(5n + 5) .mat__tone { background: var(--color-2); }
+[data-8b-live] #materials { timeline-scope: --materials-strips; --materials-end: 84vh; }
+[data-8b-live] #materials .materials__strips { view-timeline: --materials-strips block; }
+[data-8b-live] #materials .materials__strips > .mat {
+  animation-name: materials-unfold; animation-timeline: --materials-strips; animation-fill-mode: both;
+  animation-timing-function: linear(0, 0, 0.0001, 0.0003, 0.0008, 0.0019, 0.004, 0.0075, 0.0128, 0.0205, 0.0313, 0.0457, 0.0648, 0.0892, 0.1201, 0.1582, 0.2048, 0.261, 0.3281, 0.4073, 0.5, 0.5927, 0.672, 0.739, 0.7952, 0.8418, 0.88, 0.9107, 0.9352, 0.9543, 0.9688, 0.9795, 0.9872, 0.9925, 0.996, 0.998, 0.9992, 0.9998, 1, 1, 1);
+  animation-range: cover calc(18vh + var(--materials-a, 0) * (var(--materials-end) - 18vh)) cover calc(18vh + var(--materials-b, 1) * (var(--materials-end) - 18vh));
+}
+[data-8b-live] #materials .materials__strips > .mat > .mat__tone {
+  animation-name: materials-tone; animation-timeline: --materials-strips; animation-fill-mode: both; animation-timing-function: linear;
+  animation-range: cover calc(18vh + var(--materials-ta, 0) * (var(--materials-end) - 18vh)) cover calc(18vh + var(--materials-tb, 1) * (var(--materials-end) - 18vh));
+}
+@keyframes materials-unfold { from { translate: var(--materials-x, 0px) var(--materials-y, 0px); clip-path: inset(0px var(--materials-cr, 0px) var(--materials-cb, 0px) 0px); } to { translate: 0 0; clip-path: inset(0px); } }
+@keyframes materials-tone { from { opacity: 1; } to { opacity: 0; } }
+@media (width < 800px) {
+  [data-8b-live] #materials { --materials-end: 92vh; }
+}
+}
+</style>
+<style data-8b-part="scene:process-courses">
+@layer scenes {
+[data-8b-live] #process .process__wall > * { animation-fill-mode: both; animation-timing-function: linear(0, 0.0963, 0.1855, 0.2679, 0.3439, 0.4138, 0.478, 0.5367, 0.5904, 0.6392, 0.6836, 0.7237, 0.7599, 0.7924, 0.8215, 0.8474, 0.8704, 0.8907, 0.9085, 0.924, 0.9375, 0.9491, 0.959, 0.9674, 0.9744, 0.9802, 0.985, 0.9888, 0.9919, 0.9943, 0.9961, 0.9974, 0.9984, 0.9991, 0.9995, 0.9998, 0.9999, 1, 1, 1, 1); }
+@keyframes process-lay { from { translate: calc(var(--process-side) * var(--process-from)) var(--process-drop); rotate: calc(var(--process-side) * var(--process-turn)); opacity: 0; } to { translate: 0 0; rotate: 0deg; opacity: 1; } }
+@media (width >= 900px) {
+  [data-8b-live] #process { min-height: 290vh; padding-bottom: 0; view-timeline: --process-section block; }
+  [data-8b-live] #process .process__stage { position: sticky; top: 0; height: 100vh; padding: 92px 0 var(--space-1); }
+  [data-8b-live] #process .process__wall { grid-template-rows: repeat(3, minmax(0, 1fr)); }
+  [data-8b-live] #process .process__wall > * {
+    --process-side: var(--process-side-w, 1); --process-from: 75vw; --process-drop: -48px; --process-turn: 5deg;
+    animation-name: process-lay; animation-timeline: --process-section;
+    animation-range: contain calc(var(--process-a, 0) * 100%) contain calc(var(--process-b, 1) * 100%);
+  }
+}
+@media (width < 900px) {
+  [data-8b-live] #process .process__wall > .step {
+    --process-side: var(--process-side-n, 1); --process-from: 60vw; --process-drop: 0px; --process-turn: 4deg;
+    animation-name: process-lay; animation-timeline: view(); animation-range: cover 2vh cover 38vh;
+  }
+}
+}
+</style>
+<style data-8b-part="scene:promise-stack">
+@layer scenes {
+[data-8b-live] #promise .promise__type { view-timeline: --promise-type block; }
+[data-8b-live] #promise .promise__list { view-timeline: --promise-list block; }
+[data-8b-live] #promise :is(.promise__word, .promise__copy) { font-stretch: 150%; transition: font-stretch 0.9s cubic-bezier(0.65, 0, 0.35, 1); }
+[data-8b-live] #promise.is-narrow :is(.promise__word, .promise__copy) { font-stretch: 75%; }
+[data-8b-live] #promise .promise__copy {
+  --promise-k: 1;
+  animation-name: promise-copy-drop, promise-copy-fade;
+  animation-timeline: --promise-type;
+  animation-range: cover 5vh cover 72vh;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1), linear;
+  animation-fill-mode: both;
+}
+[data-8b-live] #promise .promise__copy + .promise__copy { --promise-k: 2; }
+[data-8b-live] #promise .promise__copy + .promise__copy + .promise__copy { --promise-k: 3; }
+[data-8b-live] #promise .promise__copy + .promise__copy + .promise__copy + .promise__copy { --promise-k: 4; }
+[data-8b-live] #promise .promise__list > li > .promise__rule { animation-name: promise-rule; animation-timeline: --promise-list; animation-range: cover calc(12vh + 5.5vh * var(--i)) cover calc(34vh + 5.5vh * var(--i)); animation-timing-function: cubic-bezier(0.3333, 1, 0.6667, 1); animation-fill-mode: both; transform: none; }
+@keyframes promise-copy-drop { from { translate: 0 calc(var(--promise-k) * -62%); } to { translate: 0 0; } }
+@keyframes promise-copy-fade { 0%, 94% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes promise-rule { 0% { scale: 0 1; } 100% { scale: 1; } }
+}
+</style>
+<style data-8b-part="scene:reviews-stack">
+@layer scenes {
+  @media (prefers-reduced-motion: no-preference) {
+    [data-8b-live] #reviews .review { position: sticky; }
+  }
+}
+@layer scenes {
+[data-8b-live] #reviews .reviews__stack > li { top: calc(calc(0px + var(--i) * 16px) + 12vh); }
+[data-8b-live] #reviews { timeline-scope: --reviews-t1, --reviews-t2, --reviews-t3; }
+[data-8b-live] #reviews .m-surface-2, [data-8b-live] #reviews .m-surface-3, [data-8b-live] #reviews .m-surface { animation-name: reviews-li-review-scale; transform: none; }
+[data-8b-live] #reviews .m-surface-2, [data-8b-live] #reviews .m-surface-3, [data-8b-live] #reviews .m-surface, [data-8b-live] #reviews .m-surface > .review__body, [data-8b-live] #reviews .m-surface-2 > .review__body, [data-8b-live] #reviews .m-surface-3 > .review__body { animation-timing-function: linear; animation-fill-mode: both; }
+[data-8b-live] #reviews .m-surface-2 { view-timeline: --reviews-t1 block; view-timeline-inset: 0; animation-timeline: --reviews-t2; }
+[data-8b-live] #reviews .m-surface-3 { view-timeline: --reviews-t2 block; view-timeline-inset: 0; animation-timeline: --reviews-t3; }
+[data-8b-live] #reviews .m-surface-4 { view-timeline: --reviews-t3 block; view-timeline-inset: 0; }
+[data-8b-live] #reviews .m-surface { animation-timeline: --reviews-t1; }
+[data-8b-live] #reviews .m-surface > .review__body { animation-name: reviews-blockquote-review-body-opacity; animation-timeline: --reviews-t1; }
+[data-8b-live] #reviews .m-surface-2 > .review__body { animation-name: reviews-blockquote-review-body-opacity; animation-timeline: --reviews-t2; }
+[data-8b-live] #reviews .m-surface-3 > .review__body { animation-name: reviews-blockquote-review-body-opacity; animation-timeline: --reviews-t3; }
+@keyframes reviews-li-review-scale { 0% { scale: 1; } 100% { scale: 0.92; } }
+@keyframes reviews-blockquote-review-body-opacity { 0% { opacity: 1; } 100% { opacity: 0.3; } }
+@media (min-width: 801px) {
+  [data-8b-live] #reviews .m-surface-2 { animation-range: cover 28vh cover calc(100vh - 128px); }
+  [data-8b-live] #reviews .m-surface-3 { animation-range: cover 28vh cover calc(100vh - 144px); }
+  [data-8b-live] #reviews .m-surface, [data-8b-live] #reviews .m-surface > .review__body { animation-range: cover 28vh cover calc(100vh - 112px); }
+  [data-8b-live] #reviews .m-surface-2 > .review__body { animation-range: cover 28vh cover calc(100vh - 128px); }
+  [data-8b-live] #reviews .m-surface-3 > .review__body { animation-range: cover 28vh cover calc(100vh - 144px); }
+}
+@media (max-width: 800px) {
+  [data-8b-live] #reviews .m-surface-2 { animation-range: cover 28vh cover calc(100vh - 129.4px); }
+  [data-8b-live] #reviews .m-surface-3 { animation-range: cover 28vh cover calc(100vh - 145.4px); }
+  [data-8b-live] #reviews .m-surface, [data-8b-live] #reviews .m-surface > .review__body { animation-range: cover 28vh cover calc(100vh - 113.4px); }
+  [data-8b-live] #reviews .m-surface-2 > .review__body { animation-range: cover 28vh cover calc(100vh - 129.4px); }
+  [data-8b-live] #reviews .m-surface-3 > .review__body { animation-range: cover 28vh cover calc(100vh - 145.4px); }
+}
+}
+</style>
+<style data-8b-part="scene:contact-lines">
+@layer scenes {
+[data-8b-live] { --ease-power2-inout: linear(0, 0.0001, 0.0005, 0.0017, 0.004, 0.0078, 0.0135, 0.0214, 0.032, 0.0456, 0.0625, 0.0832, 0.108, 0.1373, 0.1715, 0.2109, 0.256, 0.3071, 0.3645, 0.4287, 0.5, 0.5713, 0.6355, 0.6929, 0.744, 0.7891, 0.8285, 0.8627, 0.892, 0.9168, 0.9375, 0.9544, 0.968, 0.9786, 0.9865, 0.9922, 0.996, 0.9983, 0.9995, 0.9999, 1); }
+[data-8b-live] #contact-title { view-timeline: --contact-t1 block; view-timeline-inset: 0; }
+[data-8b-live] #contact .contact__form { view-timeline: --contact-t2 block; view-timeline-inset: 0; }
+[data-8b-live] #contact .contact__line--a, [data-8b-live] #contact .contact__line--b { animation-timeline: --contact-t1; animation-range: cover 0% cover 78vh; animation-timing-function: cubic-bezier(0.3333, 1, 0.6667, 1); }
+[data-8b-live] #contact .contact__line--a { animation-name: contact-span-contact-line-translate; animation-fill-mode: both; transform: none; }
+[data-8b-live] #contact .contact__line--b { animation-name: contact-span-contact-line-translate-2; animation-fill-mode: both; transform: none; }
+[data-8b-live] #contact .contact__sheet { animation-name: contact-span-contact-sheet-scale; animation-timeline: --contact-t2; animation-range: cover 12vh cover 65vh; animation-timing-function: var(--ease-power2-inout); animation-fill-mode: both; transform: none; }
+@keyframes contact-span-contact-line-translate { 0% { translate: 38vw 0px; } 100% { translate: 0px 0px; } }
+@keyframes contact-span-contact-line-translate-2 { 0% { translate: -38vw 0px; } 100% { translate: 0px 0px; } }
+@keyframes contact-span-contact-sheet-scale { 0% { scale: 1 0.03; } 100% { scale: 1; } }
+}
+</style>
+<script data-8b-part="motion-gate">
+if (matchMedia('(prefers-reduced-motion: no-preference)').matches && CSS.supports('animation-timeline: view()')) document.documentElement.setAttribute('data-8b-live', '');
+</script>
 </head>
 <body>
 <!-- navigation: top bar: wordmark, current chapter with previous/next arrows, Book a visit, Index overlay -->
@@ -622,12 +812,12 @@ select.m-field__input { appearance: none; background-image: linear-gradient(45de
       <button class="m-btn-2 nav__index" type="button" aria-expanded="false" aria-controls="index"><span class="m-btn-2__label">Index</span></button>
     </nav>
   </div>
-  <div class="index" id="index" role="dialog" aria-modal="true" aria-label="Index of chapters" data-lenis-prevent hidden>
+  <div class="index" id="index" role="dialog" aria-modal="true" aria-label="Index of chapters" hidden>
     <div class="index__top">
       <span class="m-text-8">( Index )</span>
       <button class="m-icon-btn index__close" type="button" aria-label="Close index"><svg class="m-icon-btn__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
     </div>
-    <ol class="index__list">
+    <ol class="index__list" data-8b-items=":scope > li">
       <li><a href="#opening"><span class="index__num m-text-8">01</span><span class="m-text-3">Practice</span></a></li>
       <li><a href="#services"><span class="index__num m-text-8">02</span><span class="m-text-3">Services</span></a></li>
       <li><a href="#survey"><span class="index__num m-text-8">03</span><span class="m-text-3">Survey</span></a></li>
@@ -648,7 +838,7 @@ select.m-field__input { appearance: none; background-image: linear-gradient(45de
 <!-- opening: first screen: headline, lead, two buttons and a wall of grey blocks; second screen: room photo with a statement panel and three facts (animation: scene:opening) -->
 <section id="opening" data-8b-section="opening" aria-labelledby="opening-title">
   <div class="opening__room">
-    <img style="background:#594026" src="https://images.unsplash.com/photo-1666585607888-3f6fe0b323d8?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8Mnx8YXJjaGl0ZWN0JTIwZGVzaWduZWQlMjBob21lJTIwaW50ZXJpb3J8ZW58MXwwfHx8MTc5MTM2ODA3N3ww&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=1600&amp;q=60" width="1600" height="1067" alt="A renovated open-plan living room with a long window over the city" fetchpriority="high">
+    <img src="https://images.unsplash.com/photo-1666585607888-3f6fe0b323d8?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8Mnx8YXJjaGl0ZWN0JTIwZGVzaWduZWQlMjBob21lJTIwaW50ZXJpb3J8ZW58MXwwfHx8MTc5MTM2ODA3N3ww&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=1600&amp;q=60" width="1600" height="1067" alt="A renovated open-plan living room with a long window over the city" fetchpriority="high">
   </div>
   <div class="opening__first">
     <div class="opening__ground" aria-hidden="true"></div>
@@ -688,17 +878,17 @@ select.m-field__input { appearance: none; background-image: linear-gradient(45de
 <!-- services: list of services with duration and starting price beside a sticky photo frame (demo: kitchens, bathrooms, lofts, extensions, restoration) (animation: scene:services-index) -->
 <section id="services" class="l-grid" data-8b-section="services" aria-labelledby="services-title">
   <div class="services__head">
-    <h2 id="services-title" class="m-text-3" data-8b-motion="rise">Five kinds of job, one way of working</h2>
+    <h2 id="services-title" class="m-text-3" data-8b-motion="rise" data-8b-enter="92%">Five kinds of job, one way of working</h2>
     <p class="m-text-5"><span class="chapter m-text-8"><span class="chapter__num">02</span><span class="chapter__label">( Services )</span></span>We only take on what our own crew can build well, start to finish.</p>
   </div>
-  <div class="services__frame">
-    <img style="background:#a6a6a6" src="https://images.unsplash.com/photo-1638541363822-6f4c189b5cf7?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8OHx8bW9kZXJuJTIwa2l0Y2hlbiUyMGludGVyaW9yJTIwd2hpdGV8ZW58MXwwfHx8MTc5MTM2NTgyMHww&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=840&amp;q=60" width="1600" height="1067" alt="A white kitchen with flat cabinets, a stone worktop and steel appliances" loading="lazy">
-    <img style="background:#8c7373" src="https://images.unsplash.com/photo-1691036365036-71da57ac5919?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8Nnx8YmF0aHJvb20lMjB0aWxlcyUyMGludGVyaW9yfGVufDF8MXx8fDE3OTEzNjU4MjF8MA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=570&amp;q=60" width="1600" height="2000" alt="A narrow bathroom with plaster-pink walls, a ribbed door and black fittings" loading="lazy">
-    <img style="background:#d9d9d9" src="https://images.unsplash.com/photo-1723257124316-e1795861c8c8?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8MXx8bG9mdCUyMGNvbnZlcnNpb24lMjBiZWRyb29tfGVufDF8MHx8fDE3OTEzNjU4NDZ8MA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=840&amp;q=60" width="1600" height="1067" alt="An attic bedroom under a sloping ceiling with a skylight" loading="lazy">
-    <img style="background:#a6c0f3" src="https://images.unsplash.com/photo-1754063257992-bb9eabdbdd86?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8Mnx8Z2xhc3MlMjByZWFyJTIwZXh0ZW5zaW9uJTIwaG91c2V8ZW58MXwwfHx8MTc5MTM2NTgyMnww&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=710&amp;q=60" width="1600" height="1272" alt="A white rear extension with wide glass doors on to a paved yard" loading="lazy">
-    <img style="background:#0c260c" src="https://images.unsplash.com/photo-1556971014-c739dd2a762f?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8OHx8YnJvd25zdG9uZSUyMGludGVyaW9yJTIwc3RhaXJjYXNlfGVufDF8MXx8fDE3OTEzNjU4MjN8MA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=570&amp;q=60" width="1600" height="2133" alt="A restored curved staircase with a dark green wall and a tall window" loading="lazy">
+  <div class="services__frame" data-8b-items=":scope > img" data-8b-fixed="5">
+    <img src="https://images.unsplash.com/photo-1638541363822-6f4c189b5cf7?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8OHx8bW9kZXJuJTIwa2l0Y2hlbiUyMGludGVyaW9yJTIwd2hpdGV8ZW58MXwwfHx8MTc5MTM2NTgyMHww&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=840&amp;q=60" width="1600" height="1067" alt="A white kitchen with flat cabinets, a stone worktop and steel appliances" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1691036365036-71da57ac5919?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8Nnx8YmF0aHJvb20lMjB0aWxlcyUyMGludGVyaW9yfGVufDF8MXx8fDE3OTEzNjU4MjF8MA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=570&amp;q=60" width="1600" height="2000" alt="A narrow bathroom with plaster-pink walls, a ribbed door and black fittings" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1723257124316-e1795861c8c8?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8MXx8bG9mdCUyMGNvbnZlcnNpb24lMjBiZWRyb29tfGVufDF8MHx8fDE3OTEzNjU4NDZ8MA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=840&amp;q=60" width="1600" height="1067" alt="An attic bedroom under a sloping ceiling with a skylight" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1754063257992-bb9eabdbdd86?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8Mnx8Z2xhc3MlMjByZWFyJTIwZXh0ZW5zaW9uJTIwaG91c2V8ZW58MXwwfHx8MTc5MTM2NTgyMnww&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=710&amp;q=60" width="1600" height="1272" alt="A white rear extension with wide glass doors on to a paved yard" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1556971014-c739dd2a762f?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8OHx8YnJvd25zdG9uZSUyMGludGVyaW9yJTIwc3RhaXJjYXNlfGVufDF8MXx8fDE3OTEzNjU4MjN8MA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=570&amp;q=60" width="1600" height="2133" alt="A restored curved staircase with a dark green wall and a tall window" loading="lazy">
   </div>
-  <ul class="services__list">
+  <ul class="services__list" data-8b-items=":scope > li">
     <li class="svc">
       <h3 class="m-text-7">Kitchens</h3>
       <p class="m-text">Layouts that move plumbing and walls, not just doors. Cabinetry made in our own shop in Gowanus.</p>
@@ -730,8 +920,8 @@ select.m-field__input { appearance: none; background-image: linear-gradient(45de
 <!-- survey: how quoting works: a measured photo with red dimension lines and four numbered notes -->
 <section id="survey" class="l-grid" data-8b-section="survey" aria-labelledby="survey-title">
   <div class="survey__head">
-    <h2 id="survey-title" class="m-text-3" data-8b-motion="rise">A fixed price, from a measured survey.</h2>
-    <p class="survey__intro m-text-5" data-8b-motion="rise"><span class="chapter m-text-8"><span class="chapter__num">03</span><span class="chapter__label">( Survey )</span></span>Before we quote, two of us spend half a day in your house. What follows is a drawing, a schedule and one number.</p>
+    <h2 id="survey-title" class="m-text-3" data-8b-motion="rise" data-8b-enter="92%">A fixed price, from a measured survey.</h2>
+    <p class="survey__intro m-text-5" data-8b-motion="rise" data-8b-enter="92%"><span class="chapter m-text-8"><span class="chapter__num">03</span><span class="chapter__label">( Survey )</span></span>Before we quote, two of us spend half a day in your house. What follows is a drawing, a schedule and one number.</p>
   </div>
   <figure class="survey__drawing">
     <div class="survey__zone">
@@ -739,17 +929,17 @@ select.m-field__input { appearance: none; background-image: linear-gradient(45de
       <span class="survey__x survey__x--tr" aria-hidden="true"></span>
       <span class="survey__x survey__x--bl" aria-hidden="true"></span>
       <span class="survey__x survey__x--br" aria-hidden="true"></span>
-      <div class="m-dim survey__width" data-8b-motion="measure"><span class="m-dim__line"></span><span class="m-dim__label">Width 15′ 10″</span></div>
-      <div class="m-dim-2 survey__height" data-8b-motion="measure"><span class="m-dim-2__line"></span><span class="m-dim-2__label">Height 9′ 8″</span></div>
-      <div class="survey__photo" data-8b-motion="frame"><img style="background:#8c8c8c" src="https://images.unsplash.com/photo-1656733911001-16912b79d2bf?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8Nnx8aG91c2UlMjByZW5vdmF0aW9uJTIwaW50ZXJpb3IlMjBndXR0ZWR8ZW58MXwwfHx8MTc5MTM2NTg0N3ww&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=820&amp;q=60" width="1600" height="1069" alt="A parlour floor stripped back to its joists and old brick before the work begins" loading="lazy"></div>
+      <div class="m-dim survey__width" data-8b-motion="measure" data-8b-enter="86%"><span class="m-dim__line"></span><span class="m-dim__label">Width 15′ 10″</span></div>
+      <div class="m-dim-2 survey__height" data-8b-motion="measure" data-8b-enter="86%"><span class="m-dim-2__line"></span><span class="m-dim-2__label">Height 9′ 8″</span></div>
+      <div class="survey__photo" data-8b-motion="frame"><img src="https://images.unsplash.com/photo-1656733911001-16912b79d2bf?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8Nnx8aG91c2UlMjByZW5vdmF0aW9uJTIwaW50ZXJpb3IlMjBndXR0ZWR8ZW58MXwwfHx8MTc5MTM2NTg0N3ww&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=990&amp;q=60" width="1600" height="1069" alt="A parlour floor stripped back to its joists and old brick before the work begins" loading="lazy"></div>
     </div>
     <figcaption class="m-text-8">( Parlour floor, Clinton Hill — the day of the survey )</figcaption>
   </figure>
-  <ol class="survey__notes">
-    <li data-8b-motion="rise"><p class="note__label m-text-8"><span>01</span><span>( Measure )</span></p><p class="m-text">Every wall, opening and floor level, drawn to the quarter inch and sent to you as a PDF.</p></li>
-    <li data-8b-motion="rise"><p class="note__label m-text-8"><span>02</span><span>( Open up )</span></p><p class="m-text">With your permission we lift a board or two: joists and wiring decide the price, not guesses.</p></li>
-    <li data-8b-motion="rise"><p class="note__label m-text-8"><span>03</span><span>( Price )</span></p><p class="m-text">One number per room, itemised and valid for sixty days. Changes are priced before they are built.</p></li>
-    <li data-8b-motion="rise"><p class="note__label m-text-8"><span>04</span><span>( Cost )</span></p><p class="m-text">The survey costs $450 and comes off the job if you go ahead with us.</p></li>
+  <ol class="survey__notes" data-8b-items=":scope > li">
+    <li data-8b-motion="rise" data-8b-enter="92%"><p class="note__label m-text-8"><span>01</span><span>( Measure )</span></p><p class="m-text">Every wall, opening and floor level, drawn to the quarter inch and sent to you as a PDF.</p></li>
+    <li data-8b-motion="rise" data-8b-enter="92%"><p class="note__label m-text-8"><span>02</span><span>( Open up )</span></p><p class="m-text">With your permission we lift a board or two: joists and wiring decide the price, not guesses.</p></li>
+    <li data-8b-motion="rise" data-8b-enter="92%"><p class="note__label m-text-8"><span>03</span><span>( Price )</span></p><p class="m-text">One number per room, itemised and valid for sixty days. Changes are priced before they are built.</p></li>
+    <li data-8b-motion="rise" data-8b-enter="92%"><p class="note__label m-text-8"><span>04</span><span>( Cost )</span></p><p class="m-text">The survey costs $450 and comes off the job if you go ahead with us.</p></li>
   </ol>
 </section>
 
@@ -757,22 +947,22 @@ select.m-field__input { appearance: none; background-image: linear-gradient(45de
 <section id="work" data-8b-section="work" aria-labelledby="work-title">
   <div class="work__stage">
   <div class="work__head l-grid">
-    <h2 id="work-title" class="m-text-3" data-8b-motion="rise">Rooms we handed back</h2>
-    <p class="work__intro m-text-5" data-8b-motion="rise"><span class="chapter m-text-4"><span class="chapter__num">04</span><span class="chapter__label">( Work )</span></span>Twelve rooms from the last eighteen months, photographed the week the keys went back.</p>
+    <h2 id="work-title" class="m-text-3" data-8b-motion="rise" data-8b-enter="92%">Rooms we handed back</h2>
+    <p class="work__intro m-text-5" data-8b-motion="rise" data-8b-enter="92%"><span class="chapter m-text-4"><span class="chapter__num">04</span><span class="chapter__label">( Work )</span></span>Twelve rooms from the last eighteen months, photographed the week the keys went back.</p>
   </div>
-  <ul class="work__sheet">
-    <li class="work__item"><figure><div class="work__photo"><img style="background:#595940" src="https://images.unsplash.com/photo-1669476441555-3d8d8200e5fe?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8Nnx8b2FrJTIwZmxvb3IlMjBpbnRlcmlvciUyMGRldGFpbHxlbnwxfDF8fHwxNzkxMzY1ODQ4fDA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=280&amp;q=60" width="1600" height="2400" alt="Oak floorboards in low sun beside a tall window" loading="lazy"></div><figcaption class="m-text-4">Living room — Clinton Hill</figcaption></figure></li>
-    <li class="work__item"><figure><div class="work__photo"><img style="background:#a6a6a6" src="https://images.unsplash.com/photo-1722942116037-97e84b56c990?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8N3x8b2FrJTIwZmxvb3IlMjBpbnRlcmlvciUyMGRldGFpbHxlbnwxfDF8fHwxNzkxMzY1ODQ4fDA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=280&amp;q=60" width="1600" height="2400" alt="A white panelled door opening on to a herringbone oak floor" loading="lazy"></div><figcaption class="m-text-4">Hall and doors — Ditmas Park</figcaption></figure></li>
-    <li class="work__item"><figure><div class="work__photo"><img style="background:#26260c" src="https://images.unsplash.com/photo-1750658080060-54668f9dd29a?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8MXx8a2l0Y2hlbiUyMGRldGFpbCUyMHNpbmslMjB3aW5kb3d8ZW58MXwxfHx8MTc5MTM2NTg0OXww&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=280&amp;q=60" width="1600" height="2400" alt="Morning light through a kitchen window over the sink" loading="lazy"></div><figcaption class="m-text-4">Kitchen window — Bed-Stuy</figcaption></figure></li>
-    <li class="work__item"><figure><div class="work__photo"><img style="background:#a6a6a6" src="https://images.unsplash.com/photo-1758565810995-bee5d73315f0?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8NXx8a2l0Y2hlbiUyMGRldGFpbCUyMHNpbmslMjB3aW5kb3d8ZW58MXwxfHx8MTc5MTM2NTg0OXww&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=280&amp;q=60" width="1600" height="2251" alt="A long kitchen and dining room with a wall of tall units and a view out" loading="lazy"></div><figcaption class="m-text-4">Kitchen and dining — Sunset Park</figcaption></figure></li>
-    <li class="work__item"><figure><div class="work__photo"><img style="background:#a6a6a6" src="https://images.unsplash.com/photo-1643034738686-d69e7bc047e1?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8NHx8bW9kZXJuJTIwa2l0Y2hlbiUyMGludGVyaW9yJTIwd2hpdGV8ZW58MXwwfHx8MTc5MTM2NTgyMHww&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=520&amp;q=60" width="1600" height="1067" alt="A pale kitchen with a sink under a window and open shelves" loading="lazy"></div><figcaption class="m-text-4">Kitchen — Windsor Terrace</figcaption></figure></li>
-    <li class="work__item"><figure><div class="work__photo"><img style="background:#c0a6a6" src="https://images.unsplash.com/photo-1758448018619-4cbe2250b9ad?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8OHx8YmF0aHJvb20lMjB0aWxlcyUyMGludGVyaW9yfGVufDF8MXx8fDE3OTEzNjU4MjF8MA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=280&amp;q=60" width="1600" height="2134" alt="A marble-clad bathroom with a walk-in shower and a slim basin" loading="lazy"></div><figcaption class="m-text-4">Bathroom — Cobble Hill</figcaption></figure></li>
-    <li class="work__item"><figure><div class="work__photo"><img style="background:#594026" src="https://images.unsplash.com/photo-1756079664354-34944e001f6d?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8MTF8fGJhdGhyb29tJTIwdGlsZXMlMjBpbnRlcmlvcnxlbnwxfDF8fHwxNzkxMzY1ODIxfDA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=300&amp;q=60" width="1600" height="1867" alt="A double vanity in grey marble with copper basins and warm light" loading="lazy"></div><figcaption class="m-text-4">Bathroom — Fort Greene</figcaption></figure></li>
-    <li class="work__item"><figure><div class="work__photo"><img style="background:#d9d9d9" src="https://images.unsplash.com/photo-1628745423029-59d3491c0b44?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8NHx8ZGluaW5nJTIwcm9vbSUyMHdpbmRvdyUyMGxpZ2h0fGVufDF8MHx8fDE3OTEzNjU4NTB8MA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=520&amp;q=60" width="1600" height="1067" alt="A dining table with black metal chairs beside a wide window" loading="lazy"></div><figcaption class="m-text-4">Dining room — Kensington</figcaption></figure></li>
-    <li class="work__item"><figure><div class="work__photo"><img style="background:#c0c0c0" src="https://images.unsplash.com/photo-1630699375895-fe5996d163ee?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8MTh8fGJyaWdodCUyMG9wZW4lMjBwbGFuJTIwbGl2aW5nJTIwcm9vbSUyMHJlbm92YXRlZHxlbnwxfDB8fHwxNzkxMzY1ODE5fDA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=520&amp;q=60" width="1600" height="1067" alt="An empty white parlour with new oak floors and garden doors" loading="lazy"></div><figcaption class="m-text-4">Parlour floor — Prospect Heights</figcaption></figure></li>
-    <li class="work__item"><figure><div class="work__photo"><img style="background:#c0c0a6" src="https://images.unsplash.com/photo-1774199496664-a9690967be5a?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8NHx8YXJjaGl0ZWN0JTIwZGVzaWduZWQlMjBob21lJTIwaW50ZXJpb3J8ZW58MXwwfHx8MTc5MTM2ODA3N3ww&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=520&amp;q=60" width="1600" height="1067" alt="A living room with a black fireplace, oak-framed windows and low seating" loading="lazy"></div><figcaption class="m-text-4">Living room — Carroll Gardens</figcaption></figure></li>
-    <li class="work__item"><figure><div class="work__photo"><img style="background:#d9d9d9" src="https://images.unsplash.com/photo-1595327775729-266512319652?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8NHx8YnJvd25zdG9uZSUyMGludGVyaW9yJTIwc3RhaXJjYXNlfGVufDF8MXx8fDE3OTEzNjU4MjN8MA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=280&amp;q=60" width="1600" height="2400" alt="A straight timber stair rising between white walls" loading="lazy"></div><figcaption class="m-text-4">Stair — Crown Heights</figcaption></figure></li>
-    <li class="work__item"><figure><div class="work__photo"><img style="background:#f3f3d9" src="https://images.unsplash.com/photo-1781545343044-c2e3ee33c365?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8Nnx8bWluaW1hbGlzdCUyMGludGVyaW9yJTIwbGlnaHQlMjBzaGFkb3clMjB3YWxsfGVufDF8MHx8fDE3OTEzNjU4NDV8MA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=520&amp;q=60" width="1600" height="1067" alt="Window-frame shadows falling across a freshly plastered wall" loading="lazy"></div><figcaption class="m-text-4">Top floor — Greenpoint</figcaption></figure></li>
+  <ul class="work__sheet" data-8b-items=":scope > li" data-8b-fixed="12">
+    <li class="work__item"><figure><div class="work__photo"><img src="https://images.unsplash.com/photo-1669476441555-3d8d8200e5fe?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8Nnx8b2FrJTIwZmxvb3IlMjBpbnRlcmlvciUyMGRldGFpbHxlbnwxfDF8fHwxNzkxMzY1ODQ4fDA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=150&amp;q=60" width="1600" height="2400" alt="Oak floorboards in low sun beside a tall window" loading="lazy"></div><figcaption class="m-text-4">Living room — Clinton Hill</figcaption></figure></li>
+    <li class="work__item"><figure><div class="work__photo"><img src="https://images.unsplash.com/photo-1722942116037-97e84b56c990?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8N3x8b2FrJTIwZmxvb3IlMjBpbnRlcmlvciUyMGRldGFpbHxlbnwxfDF8fHwxNzkxMzY1ODQ4fDA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=210&amp;q=60" width="1600" height="2400" alt="A white panelled door opening on to a herringbone oak floor" loading="lazy"></div><figcaption class="m-text-4">Hall and doors — Ditmas Park</figcaption></figure></li>
+    <li class="work__item"><figure><div class="work__photo"><img src="https://images.unsplash.com/photo-1750658080060-54668f9dd29a?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8MXx8a2l0Y2hlbiUyMGRldGFpbCUyMHNpbmslMjB3aW5kb3d8ZW58MXwxfHx8MTc5MTM2NTg0OXww&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=180&amp;q=60" width="1600" height="2400" alt="Morning light through a kitchen window over the sink" loading="lazy"></div><figcaption class="m-text-4">Kitchen window — Bed-Stuy</figcaption></figure></li>
+    <li class="work__item"><figure><div class="work__photo"><img src="https://images.unsplash.com/photo-1758565810995-bee5d73315f0?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8NXx8a2l0Y2hlbiUyMGRldGFpbCUyMHNpbmslMjB3aW5kb3d8ZW58MXwxfHx8MTc5MTM2NTg0OXww&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=170&amp;q=60" width="1600" height="2251" alt="A long kitchen and dining room with a wall of tall units and a view out" loading="lazy"></div><figcaption class="m-text-4">Kitchen and dining — Sunset Park</figcaption></figure></li>
+    <li class="work__item"><figure><div class="work__photo"><img src="https://images.unsplash.com/photo-1643034738686-d69e7bc047e1?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8NHx8bW9kZXJuJTIwa2l0Y2hlbiUyMGludGVyaW9yJTIwd2hpdGV8ZW58MXwwfHx8MTc5MTM2NTgyMHww&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=260&amp;q=60" width="1600" height="1067" alt="A pale kitchen with a sink under a window and open shelves" loading="lazy"></div><figcaption class="m-text-4">Kitchen — Windsor Terrace</figcaption></figure></li>
+    <li class="work__item"><figure><div class="work__photo"><img src="https://images.unsplash.com/photo-1758448018619-4cbe2250b9ad?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8OHx8YmF0aHJvb20lMjB0aWxlcyUyMGludGVyaW9yfGVufDF8MXx8fDE3OTEzNjU4MjF8MA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=240&amp;q=60" width="1600" height="2134" alt="A marble-clad bathroom with a walk-in shower and a slim basin" loading="lazy"></div><figcaption class="m-text-4">Bathroom — Cobble Hill</figcaption></figure></li>
+    <li class="work__item"><figure><div class="work__photo"><img src="https://images.unsplash.com/photo-1756079664354-34944e001f6d?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8MTF8fGJhdGhyb29tJTIwdGlsZXMlMjBpbnRlcmlvcnxlbnwxfDF8fHwxNzkxMzY1ODIxfDA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=150&amp;q=60" width="1600" height="1867" alt="A double vanity in grey marble with copper basins and warm light" loading="lazy"></div><figcaption class="m-text-4">Bathroom — Fort Greene</figcaption></figure></li>
+    <li class="work__item"><figure><div class="work__photo"><img src="https://images.unsplash.com/photo-1628745423029-59d3491c0b44?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8NHx8ZGluaW5nJTIwcm9vbSUyMHdpbmRvdyUyMGxpZ2h0fGVufDF8MHx8fDE3OTEzNjU4NTB8MA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=260&amp;q=60" width="1600" height="1067" alt="A dining table with black metal chairs beside a wide window" loading="lazy"></div><figcaption class="m-text-4">Dining room — Kensington</figcaption></figure></li>
+    <li class="work__item"><figure><div class="work__photo"><img src="https://images.unsplash.com/photo-1630699375895-fe5996d163ee?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8MTh8fGJyaWdodCUyMG9wZW4lMjBwbGFuJTIwbGl2aW5nJTIwcm9vbSUyMHJlbm92YXRlZHxlbnwxfDB8fHwxNzkxMzY1ODE5fDA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=340&amp;q=60" width="1600" height="1067" alt="An empty white parlour with new oak floors and garden doors" loading="lazy"></div><figcaption class="m-text-4">Parlour floor — Prospect Heights</figcaption></figure></li>
+    <li class="work__item"><figure><div class="work__photo"><img src="https://images.unsplash.com/photo-1774199496664-a9690967be5a?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8NHx8YXJjaGl0ZWN0JTIwZGVzaWduZWQlMjBob21lJTIwaW50ZXJpb3J8ZW58MXwwfHx8MTc5MTM2ODA3N3ww&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=190&amp;q=60" width="1600" height="1067" alt="A living room with a black fireplace, oak-framed windows and low seating" loading="lazy"></div><figcaption class="m-text-4">Living room — Carroll Gardens</figcaption></figure></li>
+    <li class="work__item"><figure><div class="work__photo"><img src="https://images.unsplash.com/photo-1595327775729-266512319652?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8NHx8YnJvd25zdG9uZSUyMGludGVyaW9yJTIwc3RhaXJjYXNlfGVufDF8MXx8fDE3OTEzNjU4MjN8MA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=160&amp;q=60" width="1600" height="2400" alt="A straight timber stair rising between white walls" loading="lazy"></div><figcaption class="m-text-4">Stair — Crown Heights</figcaption></figure></li>
+    <li class="work__item"><figure><div class="work__photo"><img src="https://images.unsplash.com/photo-1781545343044-c2e3ee33c365?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8Nnx8bWluaW1hbGlzdCUyMGludGVyaW9yJTIwbGlnaHQlMjBzaGFkb3clMjB3YWxsfGVufDF8MHx8fDE3OTEzNjU4NDV8MA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=270&amp;q=60" width="1600" height="1067" alt="Window-frame shadows falling across a freshly plastered wall" loading="lazy"></div><figcaption class="m-text-4">Top floor — Greenpoint</figcaption></figure></li>
   </ul>
   </div>
 </section>
@@ -780,15 +970,15 @@ select.m-field__input { appearance: none; background-image: linear-gradient(45de
 <!-- materials: five material strips with a photo, name and use (demo: plaster, oak, marble, slate, steel) (animation: scene:materials-fan) -->
 <section id="materials" data-8b-section="materials" aria-labelledby="materials-title">
   <div class="materials__head l-grid">
-    <h2 id="materials-title" class="m-text-3" data-8b-motion="rise">Five materials we keep coming back to</h2>
-    <p class="materials__intro m-text-5" data-8b-motion="rise"><span class="chapter m-text-8"><span class="chapter__num">05</span><span class="chapter__label">( Materials )</span></span>A small palette on purpose: fewer suppliers, fewer joints, and a house that reads as one piece.</p>
+    <h2 id="materials-title" class="m-text-3" data-8b-motion="rise" data-8b-enter="92%">Five materials we keep coming back to</h2>
+    <p class="materials__intro m-text-5" data-8b-motion="rise" data-8b-enter="92%"><span class="chapter m-text-8"><span class="chapter__num">05</span><span class="chapter__label">( Materials )</span></span>A small palette on purpose: fewer suppliers, fewer joints, and a house that reads as one piece.</p>
   </div>
-  <ul class="materials__strips">
-    <li class="mat"><figure><div class="mat__photo"><img style="background:#c0c0c0" src="https://images.unsplash.com/photo-1708894462826-ba3fa93b41b7?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8MXx8bGltZSUyMHBsYXN0ZXIlMjB3YWxsJTIwdGV4dHVyZXxlbnwxfDF8fHwxNzkxMzY1ODc1fDA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=270&amp;q=60" width="1600" height="2844" alt="Smooth grey lime plaster with soft trowel marks" loading="lazy"></div><figcaption><h3 class="m-text-7">Lime plaster</h3><p class="m-text">Walls and ceilings in old brick houses. It breathes, so damp can leave.</p></figcaption></figure><span class="mat__tone" aria-hidden="true"></span></li>
-    <li class="mat"><figure><div class="mat__photo"><img style="background:#f3a673" src="https://images.unsplash.com/photo-1785333765025-3796bb7d1ce2?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8NXx8b2FrJTIwZmxvb3IlMjBpbnRlcmlvciUyMGRldGFpbHxlbnwxfDF8fHwxNzkxMzY1ODQ4fDA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=360&amp;q=60" width="1600" height="2133" alt="White oak boards with a strong grain in late sun" loading="lazy"></div><figcaption><h3 class="m-text-7">White oak</h3><p class="m-text">Floors and stair treads, oiled not lacquered, so a scratch sands out.</p></figcaption></figure><span class="mat__tone" aria-hidden="true"></span></li>
-    <li class="mat"><figure><div class="mat__photo"><img style="background:#a6a6a6" src="https://images.unsplash.com/photo-1789302557782-6c7be5165e06?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8MTV8fG1hcmJsZSUyMHRleHR1cmUlMjB3aGl0ZXxlbnwxfDF8fHwxNzkxMzY1ODc2fDA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=320&amp;q=60" width="1600" height="2400" alt="White marble tiles with grey veins laid in a grid" loading="lazy"></div><figcaption><h3 class="m-text-7">Marble</h3><p class="m-text">Bathroom walls and worktops, honed so it wears evenly.</p></figcaption></figure><span class="mat__tone" aria-hidden="true"></span></li>
-    <li class="mat"><figure><div class="mat__photo"><img style="background:#404040" src="https://images.unsplash.com/photo-1668316429902-887bf2dcb8eb?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8MTJ8fHNsYXRlJTIwc3RvbmUlMjB0ZXh0dXJlfGVufDF8MXx8fDE3OTEzNjU4NzV8MA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=270&amp;q=60" width="1600" height="2845" alt="Blue-grey slate pieces fitted together with dark joints" loading="lazy"></div><figcaption><h3 class="m-text-7">Slate</h3><p class="m-text">Thresholds, hearths and yard steps that take the weather.</p></figcaption></figure><span class="mat__tone" aria-hidden="true"></span></li>
-    <li class="mat"><figure><div class="mat__photo"><img style="background:#262626" src="https://images.unsplash.com/photo-1641060689303-c345fbd1f98a?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8MTB8fGJsYWNrZW5lZCUyMHN0ZWVsJTIwdGV4dHVyZXxlbnwxfDF8fHwxNzkxMzY1ODc3fDA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=320&amp;q=60" width="1600" height="2400" alt="A dark textured metal surface catching a band of light" loading="lazy"></div><figcaption><h3 class="m-text-7">Blackened steel</h3><p class="m-text">Exposed beams, stair stringers, shelving and window frames.</p></figcaption></figure><span class="mat__tone" aria-hidden="true"></span></li>
+  <ul class="materials__strips" data-8b-items=":scope > li" data-8b-fixed="5">
+    <li class="mat"><figure><div class="mat__photo"><img src="https://images.unsplash.com/photo-1708894462826-ba3fa93b41b7?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8MXx8bGltZSUyMHBsYXN0ZXIlMjB3YWxsJTIwdGV4dHVyZXxlbnwxfDF8fHwxNzkxMzY1ODc1fDA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=270&amp;q=60" width="1600" height="2844" alt="Smooth grey lime plaster with soft trowel marks" loading="lazy"></div><figcaption><h3 class="m-text-7">Lime plaster</h3><p class="m-text">Walls and ceilings in old brick houses. It breathes, so damp can leave.</p></figcaption></figure><span class="mat__tone" aria-hidden="true"></span></li>
+    <li class="mat"><figure><div class="mat__photo"><img src="https://images.unsplash.com/photo-1785333765025-3796bb7d1ce2?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8NXx8b2FrJTIwZmxvb3IlMjBpbnRlcmlvciUyMGRldGFpbHxlbnwxfDF8fHwxNzkxMzY1ODQ4fDA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=360&amp;q=60" width="1600" height="2133" alt="White oak boards with a strong grain in late sun" loading="lazy"></div><figcaption><h3 class="m-text-7">White oak</h3><p class="m-text">Floors and stair treads, oiled not lacquered, so a scratch sands out.</p></figcaption></figure><span class="mat__tone" aria-hidden="true"></span></li>
+    <li class="mat"><figure><div class="mat__photo"><img src="https://images.unsplash.com/photo-1789302557782-6c7be5165e06?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8MTV8fG1hcmJsZSUyMHRleHR1cmUlMjB3aGl0ZXxlbnwxfDF8fHwxNzkxMzY1ODc2fDA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=320&amp;q=60" width="1600" height="2400" alt="White marble tiles with grey veins laid in a grid" loading="lazy"></div><figcaption><h3 class="m-text-7">Marble</h3><p class="m-text">Bathroom walls and worktops, honed so it wears evenly.</p></figcaption></figure><span class="mat__tone" aria-hidden="true"></span></li>
+    <li class="mat"><figure><div class="mat__photo"><img src="https://images.unsplash.com/photo-1668316429902-887bf2dcb8eb?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8MTJ8fHNsYXRlJTIwc3RvbmUlMjB0ZXh0dXJlfGVufDF8MXx8fDE3OTEzNjU4NzV8MA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=270&amp;q=60" width="1600" height="2845" alt="Blue-grey slate pieces fitted together with dark joints" loading="lazy"></div><figcaption><h3 class="m-text-7">Slate</h3><p class="m-text">Thresholds, hearths and yard steps that take the weather.</p></figcaption></figure><span class="mat__tone" aria-hidden="true"></span></li>
+    <li class="mat"><figure><div class="mat__photo"><img src="https://images.unsplash.com/photo-1641060689303-c345fbd1f98a?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8MTB8fGJsYWNrZW5lZCUyMHN0ZWVsJTIwdGV4dHVyZXxlbnwxfDF8fHwxNzkxMzY1ODc3fDA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=320&amp;q=60" width="1600" height="2400" alt="A dark textured metal surface catching a band of light" loading="lazy"></div><figcaption><h3 class="m-text-7">Blackened steel</h3><p class="m-text">Exposed beams, stair stringers, shelving and window frames.</p></figcaption></figure><span class="mat__tone" aria-hidden="true"></span></li>
   </ul>
 </section>
 
@@ -796,10 +986,10 @@ select.m-field__input { appearance: none; background-image: linear-gradient(45de
 <section id="process" data-8b-section="process" aria-labelledby="process-title">
   <div class="process__stage">
     <div class="process__head l-grid">
-      <h2 id="process-title" class="m-text-3" data-8b-motion="rise">Built in the order a house is built</h2>
-      <p class="process__intro m-text-5" data-8b-motion="rise"><span class="chapter m-text-8"><span class="chapter__num">06</span><span class="chapter__label">( Order of work )</span></span>Every job runs the same five stages. You get the schedule on day one and photos every Friday.</p>
+      <h2 id="process-title" class="m-text-3" data-8b-motion="rise" data-8b-enter="92%">Built in the order a house is built</h2>
+      <p class="process__intro m-text-5" data-8b-motion="rise" data-8b-enter="92%"><span class="chapter m-text-8"><span class="chapter__num">06</span><span class="chapter__label">( Order of work )</span></span>Every job runs the same five stages. You get the schedule on day one and photos every Friday.</p>
     </div>
-    <ol class="process__wall">
+    <ol class="process__wall" data-8b-items=":scope > .step" data-8b-fixed="5">
       <li class="step m-surface"><span class="step__num m-text-4">01</span><h3 class="m-text-7">Survey</h3><p class="m-text">Measured drawings, opening up, one fixed number.</p><p class="step__when m-text-4">Week 0</p></li>
       <li class="step m-surface-3"><span class="step__num m-text-4">02</span><h3 class="m-text-7">Strip-out</h3><p class="m-text">Protection first, then everything we said would go, and nothing else.</p><p class="step__when m-text-4">Week 1</p></li>
       <li class="step-blank" aria-hidden="true"></li>
@@ -822,7 +1012,7 @@ select.m-field__input { appearance: none; background-image: linear-gradient(45de
   </div>
   <div class="promise__body l-grid">
     <p class="promise__intro m-text-5"><span class="chapter m-text-8"><span class="chapter__num">07</span><span class="chapter__label">( Promise )</span></span>Three things we put in writing and sign with the contract.</p>
-    <ul class="promise__list">
+    <ul class="promise__list" data-8b-items=":scope > li">
       <li><span class="promise__rule" aria-hidden="true"></span><h3 class="m-text-7">Fixed price</h3><p class="m-text">The number on your survey is the number on the last invoice, unless you change the plan.</p></li>
       <li><span class="promise__rule" aria-hidden="true"></span><h3 class="m-text-7">Fixed date</h3><p class="m-text">You get a handover date before we start. If we miss it, we pay you $250 for every working day.</p></li>
       <li><span class="promise__rule" aria-hidden="true"></span><h3 class="m-text-7">Ten years</h3><p class="m-text">Structure and waterproofing are guaranteed for ten years, and the guarantee moves with the house if you sell.</p></li>
@@ -833,29 +1023,29 @@ select.m-field__input { appearance: none; background-image: linear-gradient(45de
 <!-- crew: team row: five portraits at varied heights with name and trade, Shuffle button -->
 <section id="crew" data-8b-section="crew" aria-labelledby="crew-title">
   <div class="crew__head l-grid">
-    <h2 id="crew-title" class="m-text-3" data-8b-motion="rise">The people who quote are the people on site</h2>
+    <h2 id="crew-title" class="m-text-3" data-8b-motion="rise" data-8b-enter="92%">The people who quote are the people on site</h2>
     <p class="crew__intro m-text-5"><span class="chapter m-text-8"><span class="chapter__num">08</span><span class="chapter__label">( Crew )</span></span>Fourteen of us, all on payroll. No subcontractor you have not met.</p>
     <div class="crew__tools">
       <span class="crew__status visually-hidden" role="status" aria-live="polite" data-message="The crew has been shuffled."></span>
       <button class="m-btn-2 crew__shuffle" type="button" aria-controls="crew-row"><span class="m-btn-2__label">Shuffle</span></button>
     </div>
   </div>
-  <ul id="crew-row" class="crew__row">
-    <li class="person"><figure><div class="person__photo" data-8b-motion="frame"><img style="background:#0c2626" src="https://images.unsplash.com/photo-1679679811837-c28b2586f533?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8Mnx8Y29uc3RydWN0aW9uJTIwd29ya2VyJTIwcG9ydHJhaXR8ZW58MXwxfHx8MTc5MTM2NTg3OXww&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=280&amp;q=60" width="1600" height="2389" alt="Joe Brennan, smiling, in a grey work shirt" loading="lazy"></div><figcaption><span class="m-text-7">Joe Brennan</span><span class="m-text-8">Site lead · 16 years</span></figcaption></figure></li>
-    <li class="person"><figure><div class="person__photo" data-8b-motion="frame"><img style="background:#595959" src="https://images.unsplash.com/photo-1649219025875-382701c15558?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8Nnx8YXJjaGl0ZWN0JTIwd29tYW4lMjBwb3J0cmFpdHxlbnwxfDF8fHwxNzkxMzY4MTA3fDA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=280&amp;q=60" width="1600" height="2000" alt="Ines Varga standing by a window in a black and white portrait" loading="lazy"></div><figcaption><span class="m-text-7">Ines Varga</span><span class="m-text-8">Surveyor and estimator · 9 years</span></figcaption></figure></li>
-    <li class="person"><figure><div class="person__photo" data-8b-motion="frame"><img style="background:#c0c0c0" src="https://images.unsplash.com/photo-1787672357797-f5fa35bb0d18?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8NXx8ZWxlY3RyaWNpYW4lMjBwb3J0cmFpdHxlbnwxfDF8fHwxNzkxMzY4MTA2fDA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=300&amp;q=60" width="1600" height="2205" alt="Kwame Asante in a blue work uniform with his arms crossed" loading="lazy"></div><figcaption><span class="m-text-7">Kwame Asante</span><span class="m-text-8">Electrician · 12 years</span></figcaption></figure></li>
-    <li class="person"><figure><div class="person__photo" data-8b-motion="frame"><img style="background:#262626" src="https://images.unsplash.com/photo-1660074127797-1c429fbb8cd6?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8M3x8ZWxlY3RyaWNpYW4lMjBwb3J0cmFpdHxlbnwxfDF8fHwxNzkxMzY4MTA2fDA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=280&amp;q=60" width="1600" height="2400" alt="Rafael Ortiz in glasses and a high-visibility vest" loading="lazy"></div><figcaption><span class="m-text-7">Rafael Ortiz</span><span class="m-text-8">Plumber · 8 years</span></figcaption></figure></li>
-    <li class="person"><figure><div class="person__photo" data-8b-motion="frame"><img style="background:#0c2626" src="https://images.unsplash.com/photo-1645564977352-10a805bbdc1b?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8MXx8ZWxlY3RyaWNpYW4lMjBwb3J0cmFpdHxlbnwxfDF8fHwxNzkxMzY4MTA2fDA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=280&amp;q=60" width="1600" height="2400" alt="Mehmet Kaya in a dark jacket, smiling" loading="lazy"></div><figcaption><span class="m-text-7">Mehmet Kaya</span><span class="m-text-8">Plasterer · 22 years</span></figcaption></figure></li>
+  <ul id="crew-row" class="crew__row" data-8b-items=":scope > li">
+    <li class="person"><figure><div class="person__photo" data-8b-motion="frame"><img src="https://images.unsplash.com/photo-1679679811837-c28b2586f533?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8Mnx8Y29uc3RydWN0aW9uJTIwd29ya2VyJTIwcG9ydHJhaXR8ZW58MXwxfHx8MTc5MTM2NTg3OXww&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=340&amp;q=60" width="1600" height="2389" alt="Joe Brennan, smiling, in a grey work shirt" loading="lazy"></div><figcaption><span class="m-text-7">Joe Brennan</span><span class="m-text-8">Site lead · 16 years</span></figcaption></figure></li>
+    <li class="person"><figure><div class="person__photo" data-8b-motion="frame"><img src="https://images.unsplash.com/photo-1649219025875-382701c15558?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8Nnx8YXJjaGl0ZWN0JTIwd29tYW4lMjBwb3J0cmFpdHxlbnwxfDF8fHwxNzkxMzY4MTA3fDA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=340&amp;q=60" width="1600" height="2000" alt="Ines Varga standing by a window in a black and white portrait" loading="lazy"></div><figcaption><span class="m-text-7">Ines Varga</span><span class="m-text-8">Surveyor and estimator · 9 years</span></figcaption></figure></li>
+    <li class="person"><figure><div class="person__photo" data-8b-motion="frame"><img src="https://images.unsplash.com/photo-1787672357797-f5fa35bb0d18?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8NXx8ZWxlY3RyaWNpYW4lMjBwb3J0cmFpdHxlbnwxfDF8fHwxNzkxMzY4MTA2fDA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=370&amp;q=60" width="1600" height="2205" alt="Kwame Asante in a blue work uniform with his arms crossed" loading="lazy"></div><figcaption><span class="m-text-7">Kwame Asante</span><span class="m-text-8">Electrician · 12 years</span></figcaption></figure></li>
+    <li class="person"><figure><div class="person__photo" data-8b-motion="frame"><img src="https://images.unsplash.com/photo-1660074127797-1c429fbb8cd6?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8M3x8ZWxlY3RyaWNpYW4lMjBwb3J0cmFpdHxlbnwxfDF8fHwxNzkxMzY4MTA2fDA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=340&amp;q=60" width="1600" height="2400" alt="Rafael Ortiz in glasses and a high-visibility vest" loading="lazy"></div><figcaption><span class="m-text-7">Rafael Ortiz</span><span class="m-text-8">Plumber · 8 years</span></figcaption></figure></li>
+    <li class="person"><figure><div class="person__photo" data-8b-motion="frame"><img src="https://images.unsplash.com/photo-1645564977352-10a805bbdc1b?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8MXx8ZWxlY3RyaWNpYW4lMjBwb3J0cmFpdHxlbnwxfDF8fHwxNzkxMzY4MTA2fDA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=340&amp;q=60" width="1600" height="2400" alt="Mehmet Kaya in a dark jacket, smiling" loading="lazy"></div><figcaption><span class="m-text-7">Mehmet Kaya</span><span class="m-text-8">Plasterer · 22 years</span></figcaption></figure></li>
   </ul>
 </section>
 
 <!-- reviews: four client quotes on grey-to-black cards that stack as you scroll (animation: scene:reviews-stack) -->
 <section id="reviews" data-8b-section="reviews" aria-labelledby="reviews-title">
   <div class="reviews__head l-grid">
-    <h2 id="reviews-title" class="m-text-3" data-8b-motion="rise">What people say after handover</h2>
-    <p class="reviews__intro m-text-5" data-8b-motion="rise"><span class="chapter m-text-8"><span class="chapter__num">09</span><span class="chapter__label">( Reviews )</span></span>Four clients from the last two years, in their own words.</p>
+    <h2 id="reviews-title" class="m-text-3" data-8b-motion="rise" data-8b-enter="92%">What people say after handover</h2>
+    <p class="reviews__intro m-text-5" data-8b-motion="rise" data-8b-enter="92%"><span class="chapter m-text-8"><span class="chapter__num">09</span><span class="chapter__label">( Reviews )</span></span>Four clients from the last two years, in their own words.</p>
   </div>
-  <ul class="reviews__stack">
+  <ul class="reviews__stack" data-8b-items=":scope > li" data-8b-fixed="4">
     <li class="review m-surface"><blockquote class="review__body"><p class="review__quote m-text-3">“They told us the week the floor would go down, and that is the week it went down. Nobody had ever done that to us.”</p><p class="review__who"><span class="m-text-7">Priya and Sam Okafor</span><span class="m-text-4">Rear extension · Ditmas Park · 2025</span></p></blockquote></li>
     <li class="review m-surface-2"><blockquote class="review__body"><p class="review__quote m-text-3">“Joe answered every text before nine at night. The snag list had four items and they were gone in two days.”</p><p class="review__who"><span class="m-text-7">Hannah Lowe</span><span class="m-text-4">Kitchen · Park Slope · 2024</span></p></blockquote></li>
     <li class="review m-surface-3"><blockquote class="review__body"><p class="review__quote m-text-3">“We kept the 1890 stair and the plaster cornice. Three other builders wanted to rip them out.”</p><p class="review__who"><span class="m-text-7">Daniel Reyes</span><span class="m-text-4">Restoration · Crown Heights · 2024</span></p></blockquote></li>
@@ -866,16 +1056,16 @@ select.m-field__input { appearance: none; background-image: linear-gradient(45de
 <!-- faq: questions and answers (native <details>) -->
 <section id="faq" data-8b-section="faq" aria-labelledby="faq-title">
   <div class="faq__head l-grid">
-    <h2 id="faq-title" class="m-text-3" data-8b-motion="rise">Before you call</h2>
-    <p class="faq__intro m-text-5" data-8b-motion="rise"><span class="chapter m-text-8"><span class="chapter__num">10</span><span class="chapter__label">( Questions )</span></span>The six things people ask us first.</p>
+    <h2 id="faq-title" class="m-text-3" data-8b-motion="rise" data-8b-enter="92%">Before you call</h2>
+    <p class="faq__intro m-text-5" data-8b-motion="rise" data-8b-enter="92%"><span class="chapter m-text-8"><span class="chapter__num">10</span><span class="chapter__label">( Questions )</span></span>The six things people ask us first.</p>
   </div>
-  <div class="faq__list">
-    <details class="faq__item" data-8b-motion="rise"><summary class="faq__q"><span class="faq__label m-text-8">( Area )</span><span class="m-text-7">Where do you work?</span><span class="faq__sign" aria-hidden="true"></span></summary><div class="faq__a"><p class="m-text">Brooklyn and the western half of Queens. For a whole-house job we also travel to Manhattan and Jersey City.</p></div></details>
-    <details class="faq__item" data-8b-motion="rise"><summary class="faq__q"><span class="faq__label m-text-8">( Size )</span><span class="m-text-7">What is the smallest job you take?</span><span class="faq__sign" aria-hidden="true"></span></summary><div class="faq__a"><p class="m-text">A single bathroom. We do not take repairs or handyman work; we are not set up to do them well.</p></div></details>
-    <details class="faq__item" data-8b-motion="rise"><summary class="faq__q"><span class="faq__label m-text-8">( Permits )</span><span class="m-text-7">Who deals with permits and inspections?</span><span class="faq__sign" aria-hidden="true"></span></summary><div class="faq__a"><p class="m-text">We do. Our expediter files the drawings, books every inspection and keeps the permit in your window.</p></div></details>
-    <details class="faq__item" data-8b-motion="rise"><summary class="faq__q"><span class="faq__label m-text-8">( Living in )</span><span class="m-text-7">Can we stay in the house?</span><span class="faq__sign" aria-hidden="true"></span></summary><div class="faq__a"><p class="m-text">For kitchens and bathrooms, usually yes. We seal off the work area with dust walls and leave you a temporary sink.</p></div></details>
-    <details class="faq__item" data-8b-motion="rise"><summary class="faq__q"><span class="faq__label m-text-8">( Payment )</span><span class="m-text-7">How do payments work?</span><span class="faq__sign" aria-hidden="true"></span></summary><div class="faq__a"><p class="m-text">A ten percent deposit, then a payment as each stage passes inspection. Never ahead of the work.</p></div></details>
-    <details class="faq__item" data-8b-motion="rise"><summary class="faq__q"><span class="faq__label m-text-8">( Start )</span><span class="m-text-7">How soon can you start?</span><span class="faq__sign" aria-hidden="true"></span></summary><div class="faq__a"><p class="m-text">Surveys within two weeks of your call. Building usually starts six to ten weeks after you sign.</p></div></details>
+  <div class="faq__list" data-8b-items=":scope > details">
+    <details class="faq__item" data-8b-motion="rise" data-8b-enter="92%"><summary class="faq__q"><span class="faq__label m-text-8">( Area )</span><span class="m-text-7">Where do you work?</span><span class="faq__sign" aria-hidden="true"></span></summary><div class="faq__a"><p class="m-text">Brooklyn and the western half of Queens. For a whole-house job we also travel to Manhattan and Jersey City.</p></div></details>
+    <details class="faq__item" data-8b-motion="rise" data-8b-enter="92%"><summary class="faq__q"><span class="faq__label m-text-8">( Size )</span><span class="m-text-7">What is the smallest job you take?</span><span class="faq__sign" aria-hidden="true"></span></summary><div class="faq__a"><p class="m-text">A single bathroom. We do not take repairs or handyman work; we are not set up to do them well.</p></div></details>
+    <details class="faq__item" data-8b-motion="rise" data-8b-enter="92%"><summary class="faq__q"><span class="faq__label m-text-8">( Permits )</span><span class="m-text-7">Who deals with permits and inspections?</span><span class="faq__sign" aria-hidden="true"></span></summary><div class="faq__a"><p class="m-text">We do. Our expediter files the drawings, books every inspection and keeps the permit in your window.</p></div></details>
+    <details class="faq__item" data-8b-motion="rise" data-8b-enter="92%"><summary class="faq__q"><span class="faq__label m-text-8">( Living in )</span><span class="m-text-7">Can we stay in the house?</span><span class="faq__sign" aria-hidden="true"></span></summary><div class="faq__a"><p class="m-text">For kitchens and bathrooms, usually yes. We seal off the work area with dust walls and leave you a temporary sink.</p></div></details>
+    <details class="faq__item" data-8b-motion="rise" data-8b-enter="92%"><summary class="faq__q"><span class="faq__label m-text-8">( Payment )</span><span class="m-text-7">How do payments work?</span><span class="faq__sign" aria-hidden="true"></span></summary><div class="faq__a"><p class="m-text">A ten percent deposit, then a payment as each stage passes inspection. Never ahead of the work.</p></div></details>
+    <details class="faq__item" data-8b-motion="rise" data-8b-enter="92%"><summary class="faq__q"><span class="faq__label m-text-8">( Start )</span><span class="m-text-7">How soon can you start?</span><span class="faq__sign" aria-hidden="true"></span></summary><div class="faq__a"><p class="m-text">Surveys within two weeks of your call. Building usually starts six to ten weeks after you sign.</p></div></details>
   </div>
 </section>
 
@@ -891,12 +1081,12 @@ select.m-field__input { appearance: none; background-image: linear-gradient(45de
         <dt class="m-text-8">Email</dt><dd class="m-text"><a data-8b-placeholder="email" class="m-link" href="mailto:hello@ashlarbuild.example">hello@ashlarbuild.example</a></dd>
         <dt class="m-text-8">Hours</dt><dd class="m-text">Monday to Friday, 7:30–17:00. Saturdays by appointment.</dd>
       </dl>
-      <figure class="contact__photo" data-8b-motion="frame"><img style="background:#402626" src="https://images.unsplash.com/photo-1649560065937-8405481a53d8?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8MXx8YnJvb2tseW4lMjBicm93bnN0b25lfGVufDF8MXx8fDE3OTEzNjU4NDd8MA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=570&amp;q=60" width="1600" height="2591" alt="A row of Brooklyn brownstones with bay windows and stoops" loading="lazy"></figure>
+      <figure class="contact__photo" data-8b-motion="frame"><img src="https://images.unsplash.com/photo-1649560065937-8405481a53d8?ixid=M3w0Mzc5fDB8MXxzZWFyY2h8MXx8YnJvb2tseW4lMjBicm93bnN0b25lfGVufDF8MXx8fDE3OTEzNjU4NDd8MA&amp;ixlib=rb-4.1.0&amp;auto=format&amp;fit=crop&amp;w=690&amp;q=60" width="1600" height="2591" alt="A row of Brooklyn brownstones with bay windows and stoops" loading="lazy"></figure>
     </div>
     <form data-8b-placeholder="form" class="contact__form" action="#" method="post" novalidate>
       <span class="contact__sheet" aria-hidden="true"></span>
-      <div class="m-dim contact__width" data-8b-motion="measure" aria-hidden="true"><span class="m-dim__line"></span><span class="m-dim__label">Half a day on site</span></div>
-      <div class="m-dim-2 contact__height" data-8b-motion="measure" aria-hidden="true"><span class="m-dim-2__line"></span><span class="m-dim-2__label">One fixed number</span></div>
+      <div class="m-dim contact__width" data-8b-motion="measure" data-8b-enter="86%" aria-hidden="true"><span class="m-dim__line"></span><span class="m-dim__label">Half a day on site</span></div>
+      <div class="m-dim-2 contact__height" data-8b-motion="measure" data-8b-enter="86%" aria-hidden="true"><span class="m-dim-2__line"></span><span class="m-dim-2__label">One fixed number</span></div>
       <div class="contact__pair">
         <label class="m-field"><span class="m-field__label">Your name</span><input class="m-field__input" name="name" type="text" autocomplete="name" required></label>
         <label class="m-field"><span class="m-field__label">Phone</span><input class="m-field__input" name="phone" type="tel" autocomplete="tel"></label>
@@ -918,7 +1108,7 @@ select.m-field__input { appearance: none; background-image: linear-gradient(45de
 
 <!-- footer: black footer: big back-to-top link, address, contacts, section links, licence line, copyright and the Design: 8B credit -->
 <footer id="footer" data-8b-section="footer">
-  <a class="footer__top m-link m-text-2" href="#opening" data-8b-motion="rise">Back to 01 Practice ↑</a>
+  <a class="footer__top m-link m-text-2" href="#opening" data-8b-motion="rise" data-8b-enter="92%">Back to 01 Practice ↑</a>
   <div class="footer__cols l-grid">
     <div class="footer__col"><p class="m-text-7">Ashlar Build</p><p class="m-text">100 Example Street<br>Brooklyn, NY 11217</p></div>
     <div class="footer__col"><p class="m-text-4">Talk to us</p><ul class="m-text"><li><a data-8b-placeholder="phone" class="m-link" href="tel:+17180000000">(718) 000-0000</a></li><li><a data-8b-placeholder="email" class="m-link" href="mailto:hello@ashlarbuild.example">hello@ashlarbuild.example</a></li></ul></div>
@@ -1042,399 +1232,244 @@ select.m-field__input { appearance: none; background-image: linear-gradient(45de
   });
 })();
 </script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script>
-<script data-8b-part="motion-queue">
+<script data-8b-part="motion-kit">
 (() => {
-  'use strict';
-  const fonts = document.fonts ? document.fonts.ready : Promise.resolve();
-  const parsed = document.readyState === 'loading' ? new Promise(resolve => document.addEventListener('DOMContentLoaded', resolve, { once: true })) : Promise.resolve();
-  const ready = () => Promise.all([fonts, parsed]).then(() => firsts);
-  const nextTask = () => window.scheduler?.yield?.() ?? new Promise(resolve => setTimeout(resolve));
-  const refresh = () => {
-    if (typeof window.refreshScroll === 'function') return window.refreshScroll();
-    window.ScrollTrigger?.sort(); window.ScrollTrigger?.refresh();
-  };
-  const run = (setup, name) => {
-    for (const trigger of window.ScrollTrigger?.getAll() || []) if (!trigger.end && window.ScrollTrigger.getAll().includes(trigger)) trigger.refresh(0, 1);
-    const context = window.gsap.context(() => {});
-    const log = new MutationObserver(() => {});
-    log.observe(document.documentElement, { attributes: true, attributeOldValue: true, subtree: true });
-    let failure = null, records;
-    try { context.add(() => { try { setup(); } catch (error) { failure = error; } }); }
-    finally { records = log.takeRecords(); log.disconnect(); }
-    if (!failure) return true;
-    try { context.revert(); } catch (error) { console.error(name, 'revert failed', error); }
-    for (const { target, attributeName, oldValue } of records.reverse()) {
-      const now = target.getAttribute(attributeName);
-      if (oldValue == null) { if (now != null) target.removeAttribute(attributeName); }
-      else if (now !== oldValue) target.setAttribute(attributeName, oldValue);
-    }
-    console.error(name, failure);
-    return false;
-  };
-  let firsts = Promise.resolve(), tail = null, pending = 0, lazy = null, building = 0, firstCount = 0;
-  window.motionReady = ready();
-  parsed.then(() => { if (firstCount && !tail) firsts.then(refresh); });
-  window.queueMotion = (setup, { first = false, near, id } = {}) => {
-    if (!window.gsap || typeof setup !== 'function') return;
-    const name = id || document.currentScript?.getAttribute('data-8b-part') || 'motion';
-    if (near instanceof Element && window.IntersectionObserver) {
-      const watch = new IntersectionObserver(entries => {
-        if (!entries.some(entry => entry.isIntersecting)) return;
-        watch.disconnect();
-        building++;
-        lazy = (lazy || ready()).then(nextTask).then(() => run(setup, name)).finally(() => { if (!--building) refresh(); });
-      }, { rootMargin: '100% 0px' });
-      watch.observe(near);
-      return;
-    }
-    if (first) { firstCount++; firsts = firsts.then(() => fonts).then(() => { if (!run(setup, name)) refresh(); }); }
-    else {
-      pending++;
-      tail = (tail || ready()).then(nextTask).then(() => run(setup, name))
-        .finally(() => { if (!--pending) refresh(); });
-    }
-    window.motionReady = Promise.all([firsts, tail]);
-  };
+const live = document.documentElement.hasAttribute('data-8b-live');
+const measures = new Set();
+let queued = false;
+const run = fn => { try { fn(); } catch (error) { console.error('[motion-kit] measure failed', error); } };
+const remeasure = () => {
+if (queued) return;
+queued = true;
+requestAnimationFrame(() => { queued = false; measures.forEach(run); realign(); });
+};
+const realign = () => document.getAnimations().forEach(animation => {
+if (animation.timeline && animation.timeline !== document.timeline && animation.playState === 'running') { animation.pause(); animation.play(); }
+});
+window.motionKit = {
+live,
+box(element) {
+if (!(element instanceof HTMLElement)) { const r = element.getBoundingClientRect(); return { x: r.left + scrollX, y: r.top + scrollY, w: r.width, h: r.height }; }
+let x = 0, y = 0, node = element;
+while (node) { x += node.offsetLeft; y += node.offsetTop; node = node.offsetParent; }
+return { x, y, w: element.offsetWidth, h: element.offsetHeight };
+},
+set(element, vars) { for (const [name, value] of Object.entries(vars)) element.style.setProperty(name, String(value)); },
+measure(fn) { if (!live) return; measures.add(fn); run(fn); },
+scene(id, fn) {
+if (!live) return;
+try { fn(); } catch (error) {
+console.error(`[motion-kit] scene ${id} failed; its section stays static`, error);
+document.querySelector(`style[data-8b-part="scene:${id}"]`)?.setAttribute('media', 'not all');
+}
+}
+};
+if (!live) { window.motionReady = Promise.resolve(); return; }
+const number = () => document.querySelectorAll('[data-8b-items]').forEach(group => {
+let items;
+try { items = [...group.querySelectorAll(group.getAttribute('data-8b-items'))]; } catch { return; }
+items.forEach((item, index) => { item.style.setProperty('--i', index); item.style.setProperty('--n', items.length); });
+});
+number();
+measures.add(number);
+requestAnimationFrame(realign);
+new ResizeObserver(remeasure).observe(document.body);
+document.fonts?.ready.then(remeasure);
+addEventListener('load', remeasure);
+window.motionReady = (document.fonts?.ready ?? Promise.resolve()).then(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+})();
+(() => {
+const kit = window.motionKit;
+if (!kit.live || !matchMedia('(pointer: fine)').matches) return;
+let target = scrollY, current = scrollY, last = 0, running = false, paused = false;
+const inner = (node, dy) => {
+for (; node && node !== document.body && node !== document.documentElement; node = node.parentElement) {
+if (!/(auto|scroll)/.test(getComputedStyle(node).overflowY) || node.scrollHeight <= node.clientHeight) continue;
+if (dy > 0 ? node.scrollTop + node.clientHeight < node.scrollHeight - 1 : node.scrollTop > 0) return true;
+}
+return false;
+};
+const step = now => {
+current += (target - current) * (1 - Math.exp(-5.3 * Math.min(0.05, (now - last) / 1000)));
+last = now;
+if (Math.abs(target - current) < 0.5) current = target;
+scrollTo({ top: current, behavior: 'instant' });
+if (current !== target) requestAnimationFrame(step); else running = false;
+};
+addEventListener('wheel', event => {
+if (paused || event.ctrlKey || Math.abs(event.deltaX) > Math.abs(event.deltaY) || inner(event.target, event.deltaY)) return;
+event.preventDefault();
+if (!running) target = current = scrollY;
+const unit = event.deltaMode === 1 ? 40 : event.deltaMode === 2 ? innerHeight : 1;
+target = Math.max(0, Math.min(document.documentElement.scrollHeight - innerHeight, target + event.deltaY * unit * 0.95));
+if (!running) { running = true; last = performance.now(); requestAnimationFrame(step); }
+}, { passive: false });
+kit.wheel = { stop() { paused = true; }, start() { paused = false; } };
+})();
+(() => {
+const kit = window.motionKit;
+if (!kit.live) return;
+const at = element => {
+const own = /^(\d{1,3}(?:\.\d+)?)%$/.exec((element.getAttribute('data-8b-enter') || '').trim());
+return own && +own[1] <= 100 ? own[1] / 100 : 0.88;
+};
+let pending = [...document.querySelectorAll('[data-8b-motion]')].map(element => ({ element, y: 0, at: at(element) }));
+let queued = false;
+const check = () => {
+queued = false;
+pending = pending.filter(item => {
+if (item.y > scrollY + innerHeight * item.at) return true;
+item.element.classList.add('is-in');
+return false;
+});
+};
+const queue = () => { if (!queued) { queued = true; requestAnimationFrame(check); } };
+kit.measure(() => { pending.forEach(item => { item.y = kit.box(item.element).y; }); queue(); });
+addEventListener('scroll', queue, { passive: true });
+})();
+(() => {
+if (!window.motionKit.live) return;
+const sheet = new CSSStyleSheet();
+sheet.replaceSync('[data-8b-off],[data-8b-off]::before,[data-8b-off]::after{animation-play-state:paused!important}');
+document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
+const watch = new IntersectionObserver(entries => entries.forEach(entry => entry.target.toggleAttribute('data-8b-off', !entry.isIntersecting)));
+const watched = new WeakSet();
+const scan = () => document.getAnimations().forEach(animation => {
+const element = animation.effect?.target;
+if (!element || watched.has(element) || animation.effect.getTiming().iterations !== Infinity || animation.timeline !== document.timeline) return;
+watched.add(element);
+watch.observe(element);
+});
+scan();
+addEventListener('load', scan);
+document.addEventListener('animationstart', scan, true);
+})();
+(() => {
+const kit = window.motionKit;
+kit.track = () => {};
+if (!kit.live) return;
+const named = { top: 0, center: 0.5, bottom: 1 };
+const point = text => text.trim().split(/\s+/).map(word => named[word] ?? parseFloat(word) / 100);
+kit.track = (element, start, end, fn) => {
+const [s0, v0] = point(start), [s1, v1] = point(end);
+let queued = false;
+const run = () => {
+queued = false;
+const box = element.getBoundingClientRect(), vh = innerHeight;
+const d0 = box.top + box.height * s0 - vh * v0, d1 = box.top + box.height * s1 - vh * v1;
+fn(d1 === d0 ? (d0 <= 0 ? 1 : 0) : Math.min(1, Math.max(0, -d0 / (d1 - d0))));
+};
+addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(run); } }, { passive: true });
+kit.measure(run);
+};
 })();
 </script>
-<script data-8b-part="page-init">
-gsap.registerPlugin(ScrollTrigger);
-function refreshScroll() { ScrollTrigger.sort(); ScrollTrigger.refresh(); }
-gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
-  const bar = document.querySelector('#nav .nav__bar');
-  const lenis = window.lenis = new Lenis({ lerp: 0.09, anchors: { offset: -(bar ? bar.offsetHeight : 0) } });
-  const tick = time => lenis.raf(time * 1000);
-  lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add(tick);
-  gsap.ticker.lagSmoothing(0);
-  return () => { gsap.ticker.remove(tick); gsap.ticker.lagSmoothing(500, 33); lenis.destroy(); window.lenis = null; };
-});
-</script>
-<script data-8b-part="motion">
-const effects = {
-  frame(element, vars = {}) {
-    const image = element.querySelector('img');
-    const timeline = gsap.timeline(vars);
-    timeline.fromTo(element, { clipPath: 'inset(14% 18% 14% 18% round 44px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', duration: 1.2, ease: 'expo.out' }, 0);
-    if (image) timeline.fromTo(image, { scale: 1.22 }, { scale: 1, duration: 1.4, ease: 'expo.out' }, 0);
-    return timeline;
-  },
-  measure(element, vars = {}) {
-    const vertical = element.classList.contains('m-dim-2');
-    const line = element.querySelector(vertical ? '.m-dim-2__line' : '.m-dim__line');
-    const label = element.querySelector(vertical ? '.m-dim-2__label' : '.m-dim__label');
-    const timeline = gsap.timeline(vars);
-    if (line) timeline.fromTo(line, vertical ? { scaleY: 0 } : { scaleX: 0 }, vertical ? { scaleY: 1, duration: 1, ease: 'power3.inOut' } : { scaleX: 1, duration: 1, ease: 'power3.inOut' }, 0);
-    if (label) timeline.fromTo(label, { opacity: 0 }, { opacity: 1, duration: .4, ease: 'none' }, .55);
-    return timeline;
-  },
-  rise(element, vars = {}) {
-    return gsap.timeline(vars).fromTo(element, { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: .9, ease: 'power3.out' });
-  }
-};
-const effectStarts = { frame: 'top 88%', measure: 'top 86%', rise: 'top 92%' };
-Object.keys(effects).forEach(name => {
-  document.querySelectorAll('[data-8b-section]').forEach(section => {
-    const elements = section.querySelectorAll(`[data-8b-motion~="${name}"]`);
-    if (!elements.length) return;
-    const id = `effect:${name}:${section.id}`;
-    queueMotion(() => gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
-      elements.forEach((element, i) => ScrollTrigger.create({
-        id: `${id}:${i}`, trigger: element, start: effectStarts[name], once: true,
-        animation: effects[name](element, { paused: true })
-      }));
-    }), { first: section.getBoundingClientRect().top < innerHeight, id });
-  });
-});
-</script>
-<script data-8b-part="scene:opening">
-queueMotion(() => {
-  gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
-    const section = document.getElementById('opening');
-    const first = section.querySelector('.opening__first');
-    const ground = section.querySelector('.opening__ground');
-    const wall = section.querySelector('.wall');
-    const joints = wall.querySelector('.wall__joints');
-    const level = wall.querySelector('.wall__level');
-    const courses = [...wall.querySelectorAll('.wall__course')];
-    const room = section.querySelector('.opening__room img');
-    const copy = section.querySelector('.opening__copy');
-    const panel = section.querySelector('.opening__panel');
-    if (!first || !ground || !joints || !level || !courses.length || !room || !copy || !panel) throw new Error('opening: missing nodes');
-    const hole = () => {
-      const g = ground.getBoundingClientRect(), w = wall.getBoundingClientRect();
-      return { l: w.left - g.left, t: w.top - g.top, r: w.right - g.left, b: w.bottom - g.top };
-    };
-    section.classList.add('is-opening');
-    const timeline = gsap.timeline({
-      defaults: { ease: 'none' },
-      scrollTrigger: {
-        id: 'opening', trigger: section, start: 'top top', end: () => `+=${first.offsetHeight}`,
-        scrub: 0.6, invalidateOnRefresh: true,
-        onUpdate: self => section.classList.toggle('is-moving', self.progress > 0.001)
-      }
-    });
-    timeline
-      .fromTo(ground, {
-        '--opening-hole-r': () => `${hole().r}px`, '--opening-hole-b': () => `${hole().b}px`
-      }, {
-        '--opening-hole-r': () => `${ground.offsetWidth + 4}px`, '--opening-hole-b': () => `${ground.offsetHeight + 4}px`,
-        duration: 0.16, ease: 'power1.out'
-      }, 0.08)
-      .fromTo(ground, {
-        '--opening-hole-l': () => `${hole().l}px`, '--opening-hole-t': () => `${hole().t}px`
-      }, {
-        '--opening-hole-l': '-4px', '--opening-hole-t': '-4px',
-        duration: 0.6, ease: 'power2.in'
-      }, 0.14)
-      .to(level, { opacity: 0, duration: 0.06 }, 0)
-      .to(joints, { opacity: 0, duration: 0.14 }, 0.02)
-      .fromTo(room, { scale: 1.18 }, { scale: 1, duration: 1 }, 0)
-      .to(copy, { y: () => -innerHeight * 0.12, opacity: 0, duration: 0.32, ease: 'power1.in' }, 0.22)
-      .fromTo(panel, { y: 90, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: 'power2.out' }, 0.66);
-    courses.forEach((course, c) => {
-      const blocks = course.querySelectorAll('.wall__block');
-      timeline.to(blocks, {
-        y: () => -innerHeight * (0.1 + c * 0.035),
-        x: i => (i % 2 ? 1 : -1) * (28 + i * 22),
-        rotation: i => (i % 2 ? 5 : -5),
-        opacity: 0, duration: 0.3, stagger: 0.025, ease: 'power2.in'
-      }, 0.04 + c * 0.045);
-    });
-    return () => section.classList.remove('is-opening', 'is-moving');
-  });
-}, { first: true, id: 'scene:opening' });
-</script>
-<script data-8b-part="scene:services-index">
-queueMotion(() => {
-  gsap.matchMedia().add({
-    wide: '(prefers-reduced-motion: no-preference) and (min-width: 800.02px)',
-    narrow: '(prefers-reduced-motion: no-preference) and (max-width: 800px)'
-  }, context => {
-    const section = document.getElementById('services');
-    const frame = section.querySelector('.services__frame');
-    const list = section.querySelector('.services__list');
-    const images = frame ? [...frame.querySelectorAll('img')] : [];
-    const rows = list ? [...list.querySelectorAll('.svc')] : [];
-    const n = Math.min(images.length, rows.length);
-    if (n < 2) return;
-    const shapes = context.conditions.narrow ? ['inset(0% 0% 0% 0% round 0px 0px 0px 0px)'] : [
-      'inset(0% 0% 0% 0% round 0px 0px 0px 0px)',
-      'inset(3% 17% 3% 17% round 0px 0px 0px 0px)',
-      'inset(0% 0% 16% 0% round 0px 0px 0px 0px)',
-      'inset(15% 0% 15% 0% round 0px 0px 0px 0px)',
-      'inset(0% 9% 0% 9% round 400px 400px 0px 0px)'
-    ];
-    section.classList.add('is-indexing');
-    gsap.set(images.slice(0, n), { zIndex: i => i + 1 });
-    gsap.set(images.slice(1, n), { clipPath: 'inset(100% 0% 0% 0%)' });
-    gsap.set(rows.slice(1, n), { opacity: 0.25 });
-    const timeline = gsap.timeline({
-      defaults: { ease: 'power2.inOut' },
-      scrollTrigger: {
-        id: 'services-index', trigger: list,
-        start: () => `top+=${rows[0].offsetHeight / 2} 55%`,
-        end: () => `top+=${rows[n - 1].offsetTop - rows[0].offsetTop + rows[n - 1].offsetHeight / 2} 55%`,
-        scrub: 0.5, invalidateOnRefresh: true
-      }
-    });
-    for (let i = 1; i < n; i++) {
-      const at = i - 1 + 0.2;
-      timeline
-        .to(images[i], { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.6 }, at)
-        .fromTo(images[i], { scale: 1.18 }, { scale: 1, duration: 0.6, immediateRender: false }, at)
-        .to(frame, { clipPath: shapes[i % shapes.length], duration: 0.6 }, at)
-        .to(rows[i - 1], { opacity: 0.25, duration: 0.3 }, at)
-        .to(rows[i], { opacity: 1, duration: 0.3 }, at);
-    }
-    timeline.set({}, {}, n - 1);
-    return () => section.classList.remove('is-indexing');
-  });
-}, { id: 'scene:services-index' });
-</script>
-<script data-8b-part="scene:work-gather">
-queueMotion(() => {
-  const section = document.getElementById('work');
-  const sheet = section.querySelector('.work__sheet');
-  const items = sheet ? [...sheet.querySelectorAll('.work__item')] : [];
-  if (!items.length) return;
-  const captions = items.map(item => item.querySelector('figcaption')).filter(Boolean);
-  const rand = i => { const x = Math.sin(i * 12.9898 + 4.1) * 43758.5453; return x - Math.floor(x); };
-  gsap.matchMedia().add({
-    wide: '(prefers-reduced-motion: no-preference) and (min-width: 800.02px)',
-    narrow: '(prefers-reduced-motion: no-preference) and (max-width: 800px)'
-  }, context => {
-    const wide = context.conditions.wide;
-    if (wide) section.classList.add('is-gathering');
-    const timeline = gsap.timeline({
-      scrollTrigger: wide
-        ? { id: 'work-gather', trigger: section, start: 'top top', end: 'bottom bottom', scrub: 0.7, invalidateOnRefresh: true }
-        : { id: 'work-gather', trigger: sheet, start: 'top 92%', end: 'top 5%', scrub: 0.7, invalidateOnRefresh: true }
-    });
-    items.forEach((item, i) => {
-      const depth = rand(i);
-      timeline.from(item, {
-        x: () => (item.offsetLeft + item.offsetWidth / 2 - sheet.clientWidth / 2) * (wide ? 0.55 : 1.05) + (rand(i + 7) - 0.5) * innerWidth * 0.3,
-        y: () => wide
-          ? (rand(i + 3) - 0.35) * innerHeight * 0.9 + (item.offsetTop + item.offsetHeight / 2 - sheet.offsetHeight / 2) * 0.6
-          : (0.3 + depth) * innerHeight * 0.6 + (item.offsetTop + item.offsetHeight / 2 - sheet.offsetHeight / 2) * 0.35,
-        scale: () => (wide ? 0.55 : 0.34) + rand(i + 11) * 0.5,
-        rotation: () => (rand(i + 5) - 0.5) * 26,
-        duration: 0.5 + depth * 0.4, ease: 'power2.inOut'
-      }, wide ? 0.04 * depth : 0);
-    });
-    captions.forEach((caption, i) => timeline.from(caption, { opacity: 0, duration: 0.12, ease: 'none' }, 0.86 + i * 0.004));
-    if (wide) timeline.set({}, {}, 1.08);
-    return () => section.classList.remove('is-gathering');
-  });
-}, { id: 'scene:work-gather' });
-</script>
-<script data-8b-part="scene:materials-fan">
-queueMotion(() => {
-  const section = document.getElementById('materials');
-  const list = section.querySelector('.materials__strips');
-  const items = list ? [...list.querySelectorAll('.mat')] : [];
-  if (!items.length) return;
-  gsap.matchMedia().add({
-    wide: '(prefers-reduced-motion: no-preference) and (min-width: 800px)',
-    narrow: '(prefers-reduced-motion: no-preference) and (max-width: 799.98px)'
-  }, context => {
-    const wide = context.conditions.wide;
-    const n = items.length;
-    const band = wide ? 26 : 16;
-    section.classList.add('is-folding');
-    const timeline = gsap.timeline({
-      scrollTrigger: {
-        id: 'materials-fan', trigger: list, start: 'top 82%',
-        end: () => (wide ? 'top 16%' : 'top 8%'), scrub: 0.6, invalidateOnRefresh: true
-      }
-    });
-    items.forEach((item, i) => {
-      const tone = item.querySelector('.mat__tone');
-      if (wide) {
-        timeline.fromTo(item,
-          { x: () => list.clientWidth - (n - i) * band - item.offsetLeft, clipPath: () => `inset(0px ${item.offsetWidth - band}px 0px 0px)` },
-          { x: 0, clipPath: 'inset(0px 0px 0px 0px)', duration: 1, ease: 'power3.inOut' }, i * 0.06);
-      } else {
-        timeline.fromTo(item,
-          { y: () => i * band - item.offsetTop, clipPath: () => `inset(0px 0px ${item.offsetHeight - band}px 0px)` },
-          { y: 0, clipPath: 'inset(0px 0px 0px 0px)', duration: 1, ease: 'power3.inOut' }, i * 0.06);
-      }
-      if (tone) timeline.fromTo(tone, { opacity: 1 }, { opacity: 0, duration: 0.35, ease: 'none' }, 0.6 + i * 0.06);
-    });
-    return () => section.classList.remove('is-folding');
-  });
-}, { id: 'scene:materials-fan' });
-</script>
-<script data-8b-part="scene:process-courses">
-queueMotion(() => {
+<script data-8b-part="scene-script:process-courses">
+motionKit.scene('process-courses', () => {
   const section = document.getElementById('process');
   const wall = section.querySelector('.process__wall');
-  const blocks = wall ? [...wall.children] : [];
-  if (!blocks.length) return;
-  gsap.matchMedia().add({
-    wide: '(prefers-reduced-motion: no-preference) and (min-width: 900px)',
-    narrow: '(prefers-reduced-motion: no-preference) and (max-width: 899.98px)'
-  }, context => {
-    if (context.conditions.wide) {
-      section.classList.add('is-building');
-      const timeline = gsap.timeline({
-        scrollTrigger: { id: 'process-courses', trigger: section, start: 'top top', end: 'bottom bottom', scrub: 0.6, invalidateOnRefresh: true }
-      });
-      blocks.forEach((block, i) => {
-        const side = i % 2 ? 1 : -1;
-        timeline.fromTo(block,
-          { x: () => side * innerWidth * 0.75, y: -48, rotation: side * 5, opacity: 0 },
-          { x: 0, y: 0, rotation: 0, opacity: 1, duration: 1, ease: 'power3.out' }, i * 0.7);
-      });
-      timeline.set({}, {}, blocks.length * 0.7 + 0.6);
-      return () => section.classList.remove('is-building');
-    }
-    blocks.filter(block => block.offsetParent).forEach((block, i) => {
-      const side = i % 2 ? 1 : -1;
-      gsap.fromTo(block,
-        { x: () => side * innerWidth * 0.6, rotation: side * 4, opacity: 0 },
-        { x: 0, rotation: 0, opacity: 1, ease: 'power3.out',
-          scrollTrigger: { id: `process-courses:block-${i}`, trigger: block, start: 'top 98%', end: 'top 62%', scrub: 0.6, invalidateOnRefresh: true } });
-    });
-  });
-}, { id: 'scene:process-courses' });
+  if (!wall) throw new Error('process-courses: missing nodes');
+  const blocks = [...wall.children], steps = blocks.filter(block => block.matches('.step'));
+  const total = blocks.length * 0.7 + 0.6;
+  blocks.forEach((block, i) => motionKit.set(block, {
+    '--process-side-w': i % 2 ? 1 : -1, '--process-a': i * 0.7 / total, '--process-b': (i * 0.7 + 1) / total
+  }));
+  steps.forEach((step, i) => motionKit.set(step, { '--process-side-n': i % 2 ? 1 : -1 }));
+});
 </script>
-<script data-8b-part="scene:promise-stack">
-queueMotion(() => {
-  gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
-    const section = document.getElementById('promise');
-    const type = section.querySelector('.promise__type');
-    const word = section.querySelector('.promise__word');
-    const copies = [...section.querySelectorAll('.promise__copy')];
-    const rules = [...section.querySelectorAll('.promise__rule')];
-    if (!type || !word) return;
-    const timeline = gsap.timeline({
-      scrollTrigger: { id: 'promise-stack', trigger: type, start: 'top 95%', end: 'top 28%', scrub: 0.6, invalidateOnRefresh: true }
-    });
-    timeline.fromTo(word, { fontStretch: '150%' }, { fontStretch: '75%', duration: 1, ease: 'power2.inOut' }, 0);
-    copies.forEach((copy, i) => {
-      timeline
-        .fromTo(copy, { y: () => -(i + 1) * word.offsetHeight * 0.62, opacity: 1, fontStretch: '150%' },
-          { y: 0, fontStretch: '75%', duration: 1, ease: 'power2.inOut' }, 0)
-        .to(copy, { opacity: 0, duration: 0.06, ease: 'none' }, 0.94);
-    });
-    if (rules.length) {
-      gsap.timeline({
-        scrollTrigger: { id: 'promise-stack:rules', trigger: section.querySelector('.promise__list'), start: 'top 88%', end: 'top 55%', scrub: 0.6 }
-      }).fromTo(rules, { scaleX: 0 }, { scaleX: 1, duration: 1, stagger: 0.25, ease: 'power2.out' });
-    }
-  });
-}, { id: 'scene:promise-stack' });
-</script>
-<script data-8b-part="scene:reviews-stack">
-queueMotion(() => {
-  gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
-    const section = document.getElementById('reviews');
-    const cards = [...section.querySelectorAll('.review')];
-    if (cards.length < 2) return;
-    const topFor = i => innerHeight * 0.12 + i * 16;
-    section.classList.add('is-stacking');
-    gsap.set(cards, { top: i => `calc(12vh + ${i * 16}px)` });
-    cards.forEach((card, i) => {
-      const next = cards[i + 1];
-      const body = card.querySelector('.review__body');
-      if (!next || !body) return;
-      gsap.timeline({
-        scrollTrigger: { id: `reviews-stack:card-${i}`, trigger: next, start: 'top 72%', end: () => `top ${topFor(i + 1)}px`, scrub: 0.5, invalidateOnRefresh: true }
-      })
-        .to(card, { scale: 0.92, duration: 1, ease: 'none' }, 0)
-        .to(body, { opacity: 0.3, duration: 1, ease: 'none' }, 0);
-    });
-    return () => section.classList.remove('is-stacking');
-  });
-}, { id: 'scene:reviews-stack' });
-</script>
-<script data-8b-part="scene:contact-lines">
-queueMotion(() => {
-  gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
-    const section = document.getElementById('contact');
-    const title = section.querySelector('.contact__title');
-    const a = section.querySelector('.contact__line--a');
-    const b = section.querySelector('.contact__line--b');
-    const sheet = section.querySelector('.contact__sheet');
-    if (!title || !a || !b) return;
-    gsap.timeline({
-      scrollTrigger: { id: 'contact-lines', trigger: title, start: 'top bottom', end: 'top 22%', scrub: 0.6, invalidateOnRefresh: true }
-    })
-      .fromTo(a, { x: () => innerWidth * 0.38 }, { x: 0, duration: 1, ease: 'power2.out' }, 0)
-      .fromTo(b, { x: () => -innerWidth * 0.38 }, { x: 0, duration: 1, ease: 'power2.out' }, 0);
-    if (sheet) {
-      gsap.fromTo(sheet, { scaleY: 0.03 }, {
-        scaleY: 1, ease: 'power2.inOut',
-        scrollTrigger: { id: 'contact-lines:sheet', trigger: sheet.parentElement, start: 'top 88%', end: 'top 35%', scrub: 0.6 }
+<script data-8b-part="scene-script:materials-fan">
+motionKit.scene('materials-fan', () => {
+  const section = document.getElementById('materials');
+  const list = section.querySelector('.materials__strips');
+  if (!list) throw new Error('materials-fan: missing nodes');
+  motionKit.measure(() => {
+    const items = [...list.querySelectorAll(':scope > .mat')];
+    const wide = matchMedia('(width >= 800px)').matches;
+    const n = items.length, band = wide ? 26 : 16;
+    const total = Math.max((n - 1) * 0.06 + 1, 0.6 + (n - 1) * 0.06 + 0.35);
+    items.forEach((item, i) => {
+      motionKit.set(item, wide
+        ? { '--materials-x': `${list.clientWidth - (n - i) * band - item.offsetLeft}px`, '--materials-y': '0px', '--materials-cr': `${item.offsetWidth - band}px`, '--materials-cb': '0px' }
+        : { '--materials-x': '0px', '--materials-y': `${i * band - item.offsetTop}px`, '--materials-cr': '0px', '--materials-cb': `${item.offsetHeight - band}px` });
+      motionKit.set(item, {
+        '--materials-a': i * 0.06 / total, '--materials-b': (i * 0.06 + 1) / total,
+        '--materials-ta': (0.6 + i * 0.06) / total, '--materials-tb': (0.95 + i * 0.06) / total
       });
-    }
+    });
   });
-}, { id: 'scene:contact-lines' });
+});
+</script>
+<script data-8b-part="scene-script:work-gather">
+motionKit.scene('work-gather', () => {
+  const section = document.getElementById('work');
+  const sheet = section.querySelector('.work__sheet');
+  if (!sheet) throw new Error('work-gather: missing nodes');
+  const rand = i => { const x = Math.sin(i * 12.9898 + 4.1) * 43758.5453; return x - Math.floor(x); };
+  motionKit.measure(() => {
+    const items = [...sheet.querySelectorAll(':scope > .work__item')];
+    const wide = matchMedia('(width > 800px)').matches;
+    const steps = items.map((item, i) => {
+      const depth = rand(i), at = wide ? 0.04 * depth : 0;
+      return { at, end: at + 0.5 + depth * 0.4, caption: 0.86 + i * 0.004 };
+    });
+    const total = Math.max(wide ? 1.08 : 0, ...steps.map(s => Math.max(s.end, s.caption + 0.12)));
+    items.forEach((item, i) => {
+      const x = (item.offsetLeft + item.offsetWidth / 2 - sheet.clientWidth / 2) * (wide ? 0.55 : 1.05) + (rand(i + 7) - 0.5) * innerWidth * 0.3;
+      const y = wide
+        ? (rand(i + 3) - 0.35) * innerHeight * 0.9 + (item.offsetTop + item.offsetHeight / 2 - sheet.offsetHeight / 2) * 0.6
+        : (0.3 + rand(i)) * innerHeight * 0.6 + (item.offsetTop + item.offsetHeight / 2 - sheet.offsetHeight / 2) * 0.35;
+      const { at, end, caption } = steps[i];
+      motionKit.set(item, {
+        '--work-x': `${x}px`, '--work-y': `${y}px`,
+        '--work-s': (wide ? 0.55 : 0.34) + rand(i + 11) * 0.5, '--work-r': `${(rand(i + 5) - 0.5) * 26}deg`,
+        '--work-a': at / total, '--work-b': end / total,
+        '--work-ca': caption / total, '--work-cb': (caption + 0.12) / total
+      });
+    });
+  });
+});
+</script>
+<script data-8b-part="scene-script:services-index">
+motionKit.scene('services-index', () => {
+  const section = document.getElementById('services');
+  const frame = section.querySelector('.services__frame');
+  const list = section.querySelector('.services__list');
+  if (!frame || !list) throw new Error('services-index: missing nodes');
+  motionKit.measure(() => {
+    const rows = [...list.querySelectorAll(':scope > .svc')];
+    const n = Math.min(rows.length, frame.querySelectorAll(':scope > img').length);
+    if (n < 2) return;
+    const first = rows[0], last = rows[n - 1];
+    const start = first.offsetHeight / 2;
+    const span = last.offsetTop - first.offsetTop + last.offsetHeight / 2 - start;
+    motionKit.set(section, { '--services-start': `${start}px`, '--services-unit': `${span / (n - 1)}px` });
+  });
+});
+</script>
+<script data-8b-part="scene-script:promise-stack">
+motionKit.scene('promise-stack', () => {
+  const section = document.getElementById('promise');
+  const type = section.querySelector('.promise__type');
+  if (!type) throw new Error('promise-stack: missing nodes');
+  motionKit.track(type, 'top 95%', 'top 28%', progress => section.classList.toggle('is-narrow', progress >= 0.5));
+});
+</script>
+<script data-8b-part="scene-script:opening">
+motionKit.scene('opening', () => {
+  const section = document.getElementById('opening');
+  const ground = section.querySelector('.opening__ground');
+  const wall = section.querySelector('.wall');
+  const courses = [...wall.querySelectorAll('.wall__course')];
+  if (!ground || !courses.length) throw new Error('opening: missing nodes');
+  courses.forEach((course, c) => course.querySelectorAll('.wall__block').forEach((block, i) => motionKit.set(block, { '--opening-c': c, '--opening-i': i })));
+  motionKit.measure(() => {
+    const g = motionKit.box(ground), w = motionKit.box(wall);
+    motionKit.set(ground, {
+      '--opening-hole-l0': `${w.x - g.x}px`, '--opening-hole-t0': `${w.y - g.y}px`,
+      '--opening-hole-r0': `${w.x + w.w - g.x}px`, '--opening-hole-b0': `${w.y + w.h - g.y}px`
+    });
+  });
+});
 </script>
 </body>
 </html>
